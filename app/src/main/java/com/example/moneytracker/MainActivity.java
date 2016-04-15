@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupActionBar();
+
         Log.d(MY_TAG, "onCreate");
     }
 

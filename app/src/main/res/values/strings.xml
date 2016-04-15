@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Test</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_drawer_expenses">Траты</string> <string name="nav_drawer_categories">Категории</string>
+    <string name="nav_drawer_statistics">Статистика</string>
+    <string name="nav_drawer_settings">Настройки</string>
 </resources>
