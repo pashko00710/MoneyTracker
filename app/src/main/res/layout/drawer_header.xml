@@ -16,34 +16,39 @@
             android:id="@+id/image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/me" />
+
+            android:layout_marginTop="36dp"
+            android:src="@drawable/me" />
 
     </FrameLayout>
 
-
-    <TextView
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="30dp"
-        android:text="Pavel Arkhipov"
-        android:gravity="bottom"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="sans-serif-medium">
-    </TextView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="12dp"
-        android:text="pashko00710@gmail.com"
-        android:gravity="bottom"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="sans-serif">
-    </TextView>
+        android:layout_height="56dp"
+        android:layout_marginTop="90dp"
+        android:foregroundGravity="bottom">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="28dp"
+            android:text="Pavel Arkhipov"
+            android:gravity="bottom"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="12dp"
+            android:text="pashko00710@gmail.com"
+            android:gravity="bottom"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif">
+        </TextView>
+    </FrameLayout>
 </RelativeLayout>
