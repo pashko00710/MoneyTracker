@@ -1,12 +1,15 @@
 package com.example.moneytracker;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String MY_TAG = "myLogs";
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +53,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(MY_TAG, "onDestroy");
+    }
+
+    private void setupActionBar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar); ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 }
