@@ -22,17 +22,17 @@
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="86dp"
+        android:layout_height="@dimen/user_data_indent"
+        android:layout_marginTop="@dimen/user_data_marginTop"
         android:foregroundGravity="bottom">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/profile_margin"
-            android:layout_marginBottom="28dp"
-            android:text="Pavel Arkhipov"
+            android:layout_marginBottom="@dimen/margin_bottom_username"
+            android:text="@string/user_name"
             android:gravity="bottom"
-            android:textSize="14sp"
+            android:textSize="@dimen/nameTextSize"
             android:textColor="#FFFFFF"
             android:fontFamily="sans-serif-medium">
         </TextView>
@@ -40,10 +40,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/profile_margin"
-            android:layout_marginBottom="8dp"
-            android:text="pashko00710@gmail.com"
+            android:layout_marginBottom="@dimen/margin_bottom_useremail"
+            android:text="@string/user_email"
             android:gravity="bottom"
-            android:textSize="14sp"
+            android:textSize="@dimen/nameTextSize"
             android:textColor="#FFFFFF"
             android:fontFamily="sans-serif">
         </TextView>

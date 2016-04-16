@@ -6,4 +6,9 @@
     <dimen name="drawer_status_bar_height">25dp</dimen>
     <dimen name="header_imeageavatarsize">70dp</dimen>
     <dimen name="profile_margin">16dp</dimen>
+    <dimen name="nameTextSize">14sp</dimen>
+    <dimen name="margin_bottom_username">25dp</dimen>
+    <dimen name="margin_bottom_useremail">8dp</dimen>
+    <dimen name="user_data_indent">56dp</dimen>
+    <dimen name="user_data_marginTop">86dp</dimen>
 </resources>
