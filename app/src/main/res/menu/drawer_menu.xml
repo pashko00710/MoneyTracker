@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/drawer_expenses" android:title="@string/nav_drawer_expenses" android:checked="true"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"/>
+        <item android:id="@+id/drawer_categories" android:title="@string/nav_drawer_categories"
+            android:icon="@drawable/ic_storage_black_24dp"/>
+        <item android:id="@+id/drawer_statistics" android:title="@string/nav_drawer_statistics"
+            android:icon="@drawable/ic_equalizer_black_24dp"/>
+        <item android:id="@+id/drawer_settings" android:title="@string/nav_drawer_settings"
+            android:icon="@drawable/ic_settings_black_24dp"/>
+    </group>
+</menu>

@@ -2,4 +2,14 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="drawer_header_layout_height">172dp</dimen>
+    <dimen name="drawer_status_bar_height">25dp</dimen>
+    <dimen name="header_imeageavatarsize">64dp</dimen>
+    <dimen name="profile_margin">16dp</dimen>
+    <dimen name="nameTextSize">14sp</dimen>
+    <dimen name="margin_bottom_username">28dp</dimen>
+    <dimen name="margin_bottom_useremail">8dp</dimen>
+    <dimen name="user_data_indent">56dp</dimen>
+    <dimen name="user_data_marginTop">86dp</dimen>
+    <dimen name="width_navigationview">304dp</dimen>
 </resources>

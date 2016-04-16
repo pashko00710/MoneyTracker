@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/drawer_header_layout_height"
+    android:background="@mipmap/header_background"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/drawer_status_bar_height"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_height="@dimen/header_imeageavatarsize"
+            android:layout_width="@dimen/header_imeageavatarsize"
+            android:id="@+id/profile_image"
+            android:layout_marginStart="@dimen/profile_margin"
+            android:layout_marginLeft="@dimen/profile_margin"
+            android:layout_marginTop="@dimen/profile_margin"
+            android:src="@drawable/me"/>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/user_data_indent"
+        android:layout_marginTop="@dimen/user_data_marginTop"
+        android:foregroundGravity="bottom">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/profile_margin"
+            android:layout_marginBottom="@dimen/margin_bottom_username"
+            android:text="@string/user_name"
+            android:gravity="bottom"
+            android:textSize="@dimen/nameTextSize"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="sans-serif-medium">
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/profile_margin"
+            android:layout_marginBottom="@dimen/margin_bottom_useremail"
+            android:text="@string/user_email"
+            android:gravity="bottom"
+            android:textSize="@dimen/nameTextSize"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="sans-serif">
+        </TextView>
+    </FrameLayout>
+</RelativeLayout>
