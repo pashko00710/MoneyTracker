@@ -132,12 +132,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
+        else if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }
         else {
             super.onBackPressed();
-        }
-
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
-            finish();
         }
     }
 
@@ -164,8 +163,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new ExpenseFragmentSettings());
                 break;
             default:
-                setTitle("ExpenseFragmentWaste");
-                replaceFragment(new ExpenseFragmentWaste());
+//                setTitle("ExpenseFragmentWaste");
+//                replaceFragment(new ExpenseFragmentWaste());
                 break;
         }
         return true;
