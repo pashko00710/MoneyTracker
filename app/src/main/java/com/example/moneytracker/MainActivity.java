@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onBackStackChanged() {
-                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_expense_waste);
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_container);
                 if (f != null){
                     updateTitleAndDrawer (f);
                 }
@@ -84,30 +84,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null){ //fragment not in back stack, create it.
             FragmentTransaction ft = manager.beginTransaction();
-            ft.replace(R.id.fragment_expense_waste, fragment, fragmentTag);
+            ft.replace(R.id.main_container, fragment, fragmentTag);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.addToBackStack(backStateName);
             ft.commit();
         }
     }
 
-    private void setupRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        fillData();
-
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
-    }
+//    private void setupRecyclerView() {
+//        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+//
+//        // use this setting to improve performance if you know that changes
+//        // in content do not change the layout size of the RecyclerView
+//        mRecyclerView.setHasFixedSize(true);
+//
+//        // use a linear layout manager
+//        mLayoutManager = new LinearLayoutManager(this);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+//
+//        fillData();
+//
+//        // specify an adapter (see also next example)
+//        mAdapter = new MyAdapter(myDataset);
+//        mRecyclerView.setAdapter(mAdapter);
+//    }
 
     private void setupActionBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -145,6 +145,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         if (drawerLayout != null) {
             drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        switch(item.getItemId()) {
+            case R.id.drawer_expenses:
+                setTitle("ExpenseFragmentWaste");
+                replaceFragment(new ExpenseFragmentWaste());
+                break;
+            case R.id.drawer_categories:
+                setTitle("ExpenseFragmentCategories");
+                replaceFragment(new ExpenseFragmentCategories());
+                break;
+            case R.id.drawer_statistics:
+                setTitle("ExpenseFragmentStatistics");
+                replaceFragment(new ExpenseFragmentStatistics());
+                break;
+            case R.id.drawer_settings:
+                setTitle("ExpenseFragmenSettings");
+                replaceFragment(new ExpenseFragmentSettings());
+                break;
+            default:
+                setTitle("ExpenseFragmentWaste");
+                replaceFragment(new ExpenseFragmentWaste());
+                break;
         }
         return true;
     }
