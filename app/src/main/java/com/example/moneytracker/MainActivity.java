@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String MY_TAG = "myLogs";
@@ -22,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String[] myDataset;
+//    private String[] myDataset;
+    ArrayList<MyListCosts> myDataset = new ArrayList<MyListCosts>();
 
 
     @Override
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        fillData();
 
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(myDataset);
@@ -86,6 +91,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.closeDrawer(GravityCompat.START);
         }
         return true;
+    }
+
+    // генерируем данные для адаптера НУЖНЫ ДАННЫЕ БРО, НЕ ЗАБУДЬ
+    public void fillData() {
+        for (int i = 1; i <= 20; i++) {
+            myDataset.add(new MyListCosts("Product " + i, i * 1000));
+        }
     }
 
 }
