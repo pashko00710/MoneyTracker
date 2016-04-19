@@ -24,7 +24,12 @@ public class MyListCosts {
     public String getName() {
         return this.name;
     }
+
     public int getPrice() {
         return this.price;
+    }
+
+    public String getPriceString() {
+        return String.valueOf(this.price);
     }
 }

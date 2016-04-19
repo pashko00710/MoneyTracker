@@ -1,6 +1,9 @@
 package com.example.moneytracker;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -35,10 +38,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setupActionBar();
         setupDrawerLayout();
-        setupRecyclerView();
+//        setupRecyclerView();
+        if(savedInstanceState == null) {
+            replaceFragment(new ExpenseFragmentWaste());
+        }
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+
+            @Override
+            public void onBackStackChanged() {
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_expense_waste);
+                if (f != null){
+                    updateTitleAndDrawer (f);
+                }
+
+            }
+        });
 
     }
-    
+
+    private void updateTitleAndDrawer(Fragment fragment) {
+        String fragClassName = fragment.getClass().getName();
+
+        if (fragClassName.equals(ExpenseFragmentWaste.class.getName())) {
+            setTitle("ExpenseFragmentWaste");
+            //set selected item position, etc
+        } else if (fragClassName.equals(ExpenseFragmentCategories.class.getName())) {
+            setTitle("ExpenseFragmentCategories");
+            //set selected item position, etc
+        } else if (fragClassName.equals(ExpenseFragmentSettings.class.getName())) {
+            setTitle("ExpenseFragmentSettings");
+            //set selected item position, etc
+        } else if (fragClassName.equals(ExpenseFragmentStatistics.class.getName())) {
+            setTitle("ExpenseFragmentStatistics");
+            //set selected item position, etc
+        }
+    }
+
+    private void replaceFragment (Fragment fragment){
+        String backStateName =  fragment.getClass().getName();
+        String fragmentTag = backStateName;
+
+        FragmentManager manager = getSupportFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+
+        if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null){ //fragment not in back stack, create it.
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.fragment_expense_waste, fragment, fragmentTag);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(backStateName);
+            ft.commit();
+        }
+    }
+
     private void setupRecyclerView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -82,6 +134,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else {
             super.onBackPressed();
+        }
+
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
         }
     }
 
