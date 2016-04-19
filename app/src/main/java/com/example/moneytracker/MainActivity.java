@@ -62,15 +62,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (fragClassName.equals(ExpenseFragmentWaste.class.getName())) {
             setTitle("ExpenseFragmentWaste");
+            navigationView.setCheckedItem(R.id.drawer_expenses);
             //set selected item position, etc
         } else if (fragClassName.equals(ExpenseFragmentCategories.class.getName())) {
             setTitle("ExpenseFragmentCategories");
+            navigationView.setCheckedItem(R.id.drawer_categories);
             //set selected item position, etc
         } else if (fragClassName.equals(ExpenseFragmentSettings.class.getName())) {
             setTitle("ExpenseFragmentSettings");
+            navigationView.setCheckedItem(R.id.drawer_settings);
             //set selected item position, etc
         } else if (fragClassName.equals(ExpenseFragmentStatistics.class.getName())) {
             setTitle("ExpenseFragmentStatistics");
+            navigationView.setCheckedItem(R.id.drawer_statistics);
             //set selected item position, etc
         }
     }
