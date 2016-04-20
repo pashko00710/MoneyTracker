@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null){ //fragment not in back stack, create it.
             FragmentTransaction ft = manager.beginTransaction();
             ft.replace(R.id.main_container, fragment, fragmentTag);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.addToBackStack(backStateName);
             ft.commit();
         }
