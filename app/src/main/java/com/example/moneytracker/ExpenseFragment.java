@@ -4,9 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,8 +31,10 @@ public class ExpenseFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ArrayList<MyListCosts> myDataset = new ArrayList<MyListCosts>();
 
     private OnFragmentInteractionListener mListener;
+
 
     public ExpenseFragment() {
         // Required empty public constructor
@@ -64,8 +71,28 @@ public class ExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_expense, container, false);
+        View fragmentView =  inflater.inflate(R.layout.fragment_expense, container, false);
+        this.initExpensesRecylerView(fragmentView);
+        return fragmentView;
     }
+
+    private void initExpensesRecylerView(View fragmentView) {
+        RecyclerView expensesListRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.fragment_expense_waste);
+        expensesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        MyAdapter expensesAdapter = new MyAdapter(getExpenses());
+        expensesListRecyclerView.setAdapter(expensesAdapter);
+    }
+
+    private List<MyListCosts> getExpenses() {
+        List<MyListCosts> expenses = new ArrayList<>();
+        expenses.add(new MyListCosts("Food", 1000));
+        expenses.add(new MyListCosts("Study", 2000));
+        expenses.add(new MyListCosts("Cinema", 3000));
+        expenses.add(new MyListCosts("Cloth", 4000));
+        expenses.add(new MyListCosts("Weapon", 5000));
+        return expenses;
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -4,9 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -64,7 +69,26 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false);
+        View fragmentView =  inflater.inflate(R.layout.fragment_categories, container, false);
+        this.initExpensesRecylerView(fragmentView);
+        return fragmentView;
+    }
+
+    private void initExpensesRecylerView(View fragmentView) {
+        RecyclerView categoriesListRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.fragment_categories);
+        categoriesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getCategories());
+        categoriesListRecyclerView.setAdapter(categoriesAdapter);
+    }
+
+    private List<MyListCategory> getCategories() {
+        List<MyListCategory> categories = new ArrayList<>();
+        categories.add(new MyListCategory("Food"));
+        categories.add(new MyListCategory("Study"));
+        categories.add(new MyListCategory("Cinema"));
+        categories.add(new MyListCategory("Cloth"));
+        categories.add(new MyListCategory("Weapon"));
+        return categories;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

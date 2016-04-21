@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setupActionBar();
         setupDrawerLayout();
-//        setupRecyclerView();
+        //setupRecyclerView();
         if(savedInstanceState == null) {
             replaceFragment(new ExpenseFragment());
         }
@@ -175,10 +175,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // генерируем данные для адаптера
-    public void fillData() {
-        for (int i = 1; i <= 20; i++) {
-            myDataset.add(new MyListCosts("Product " + i, i * 1000));
-        }
-    }
+//    public void fillData() {
+//        for (int i = 1; i <= 10; i++) {
+//            myDataset.add(new MyListCosts("Product " + i, i * 1000));
+//            myDataset.add(new MyListCosts("Cinema " + i, i * 1000));
+//        }
+//    }
 
 }

@@ -5,10 +5,9 @@
     tools:context="com.example.moneytracker.ExpenseFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_expense_waste"
-        android:text="@string/expenses_fragment_waste" />
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_expense_waste" />
 
 </FrameLayout>
