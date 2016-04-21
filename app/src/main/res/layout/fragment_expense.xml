@@ -2,12 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.moneytracker.ExpenseFragmentStatistics">
+    tools:context="com.example.moneytracker.ExpenseFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/expenses_fragment_statistics" />
+        android:id="@+id/fragment_expense_waste"
+        android:text="@string/expenses_fragment_waste" />
 
 </FrameLayout>

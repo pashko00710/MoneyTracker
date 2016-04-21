@@ -11,8 +11,11 @@
     <string name="user_email">pashko00710@gmail.com</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="expenses_fragment_waste">Hello blank fragment waste</string>
+    <string name="expenses_fragment_waste">Hello blank fragment expense</string>
     <string name="expenses_fragment_categories">Hello blank fragment categories</string>
     <string name="expenses_fragment_statistics">Hello blank fragment statistics</string>
     <string name="expenses_fragment_settings">Hello blank fragment settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

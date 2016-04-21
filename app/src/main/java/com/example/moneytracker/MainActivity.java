@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupDrawerLayout();
 //        setupRecyclerView();
         if(savedInstanceState == null) {
-            replaceFragment(new ExpenseFragmentWaste());
+            replaceFragment(new ExpenseFragment());
         }
 
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
@@ -60,21 +60,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void updateTitleAndDrawer(Fragment fragment) {
         String fragClassName = fragment.getClass().getName();
 
-        if (fragClassName.equals(ExpenseFragmentWaste.class.getName())) {
-            setTitle("ExpenseFragmentWaste");
+        if (fragClassName.equals(ExpenseFragment.class.getName())) {
+            setTitle("ExpenseFragment");
             navigationView.setCheckedItem(R.id.drawer_expenses);
             //set selected item position, etc
-        } else if (fragClassName.equals(ExpenseFragmentCategories.class.getName())) {
-            setTitle("ExpenseFragmentCategories");
+        } else if (fragClassName.equals(CategoriesFragment.class.getName())) {
+            setTitle("CategoriesFragment");
             navigationView.setCheckedItem(R.id.drawer_categories);
             //set selected item position, etc
-        } else if (fragClassName.equals(ExpenseFragmentSettings.class.getName())) {
-            setTitle("ExpenseFragmentSettings");
-            navigationView.setCheckedItem(R.id.drawer_settings);
-            //set selected item position, etc
-        } else if (fragClassName.equals(ExpenseFragmentStatistics.class.getName())) {
-            setTitle("ExpenseFragmentStatistics");
+        } else if (fragClassName.equals(StatisticsFragment.class.getName())) {
+            setTitle("StatisticsFragment");
             navigationView.setCheckedItem(R.id.drawer_statistics);
+            //set selected item position, etc
+        } else if (fragClassName.equals(SettingsFragment.class.getName())) {
+            setTitle("SettingsFragment");
+            navigationView.setCheckedItem(R.id.drawer_settings);
             //set selected item position, etc
         }
     }
@@ -151,20 +151,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         switch(item.getItemId()) {
             case R.id.drawer_expenses:
-                setTitle("ExpenseFragmentWaste");
-                replaceFragment(new ExpenseFragmentWaste());
+                setTitle("ExpenseFragment");
+                replaceFragment(new ExpenseFragment());
                 break;
             case R.id.drawer_categories:
-                setTitle("ExpenseFragmentCategories");
-                replaceFragment(new ExpenseFragmentCategories());
+                setTitle("CategoriesFragment");
+                replaceFragment(new CategoriesFragment());
                 break;
             case R.id.drawer_statistics:
-                setTitle("ExpenseFragmentStatistics");
-                replaceFragment(new ExpenseFragmentStatistics());
+                setTitle("StatisticsFragment");
+                replaceFragment(new StatisticsFragment());
                 break;
             case R.id.drawer_settings:
-                setTitle("ExpenseFragmenSettings");
-                replaceFragment(new ExpenseFragmentSettings());
+                setTitle("SettingsFragment");
+                replaceFragment(new SettingsFragment());
                 break;
             default:
 //                setTitle("ExpenseFragmentWaste");
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    // генерируем данные для адаптера НУЖНЫ ДАННЫЕ БРО, НЕ ЗАБУДЬ
+    // генерируем данные для адаптера
     public void fillData() {
         for (int i = 1; i <= 20; i++) {
             myDataset.add(new MyListCosts("Product " + i, i * 1000));
