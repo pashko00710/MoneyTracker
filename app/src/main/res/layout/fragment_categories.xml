@@ -12,7 +12,7 @@
         android:id="@+id/fragment_categories"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabBtn"
+        android:id="@+id/categories_fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
