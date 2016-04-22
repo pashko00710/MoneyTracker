@@ -18,6 +18,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="@dimen/codelab_fab_margin_bottom"
         android:layout_marginRight="@dimen/codelab_fab_margin_right"
+        android:src="@drawable/ic_plus_white_24dp"
         app:fabSize="normal" />
 
 </FrameLayout>
