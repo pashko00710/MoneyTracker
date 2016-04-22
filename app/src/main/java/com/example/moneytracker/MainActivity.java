@@ -1,6 +1,7 @@
 package com.example.moneytracker;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupActionBar();
         setupDrawerLayout();
         //setupRecyclerView();
-        initInstances();
+//        initInstances();
         if(savedInstanceState == null) {
             replaceFragment(new ExpenseFragment());
         }
@@ -62,13 +63,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void initInstances() {
+    private void initInstances(View v) {
         rootLayout = (CoordinatorLayout) findViewById(R.id.expense_fragment_coordinatorlayout);
         expenseFabBtn = (FloatingActionButton) findViewById(R.id.expense_fabBtn);
         expenseFabBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
                 Snackbar.make(rootLayout, "Hello. I am Snackbar!", Snackbar.LENGTH_SHORT)
                         .setAction("Undo", new View.OnClickListener() {
                             @Override

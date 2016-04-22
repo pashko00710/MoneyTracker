@@ -3,6 +3,9 @@ package com.example.moneytracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,8 +73,30 @@ public class CategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragmentView =  inflater.inflate(R.layout.fragment_categories, container, false);
+        CoordinatorLayout rootLayout = (CoordinatorLayout) fragmentView.findViewById(R.id.categories_fragment_coordinatorlayout);
+        FloatingActionButton expenseFabBtn = (FloatingActionButton) fragmentView.findViewById(R.id.categories_fabBtn);
+
+        initInstances(rootLayout ,expenseFabBtn);
+
         this.initExpensesRecylerView(fragmentView);
         return fragmentView;
+    }
+
+    private void initInstances(final CoordinatorLayout rootLayout, FloatingActionButton expenseFabBtn) {
+        expenseFabBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+                Snackbar.make(rootLayout, "Snackbar in CategoriesFragment!", Snackbar.LENGTH_SHORT)
+                        .setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        })
+                        .show();
+            }
+        });
     }
 
     private void initExpensesRecylerView(View fragmentView) {
