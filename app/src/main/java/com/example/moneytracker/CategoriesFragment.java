@@ -110,8 +110,8 @@ public class CategoriesFragment extends Fragment {
         List<MyListCategory> categories = new ArrayList<>();
         categories.add(new MyListCategory("Food"));
         categories.add(new MyListCategory("Study"));
-        categories.add(new MyListCategory("Cinema"));
         categories.add(new MyListCategory("Cloth"));
+        categories.add(new MyListCategory("Cinema"));
         categories.add(new MyListCategory("Weapon"));
         return categories;
     }
