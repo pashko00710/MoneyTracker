@@ -1,7 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/categories_fragment_coordinatorlayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.moneytracker.CategoriesFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,4 +13,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/fragment_categories"/>
 
-</FrameLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/categories_fabBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/codelab_fab_margin_bottom"
+        android:layout_marginRight="@dimen/codelab_fab_margin_right"
+        android:src="@drawable/ic_plus_white_24dp"
+        app:layout_behavior="com.example.moneytracker.ScrollAwareFABBehavior"
+        app:fabSize="normal" />
+
+</android.support.design.widget.CoordinatorLayout>
