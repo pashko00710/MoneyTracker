@@ -19,13 +19,13 @@
             android:layout_height="match_parent"
             android:id="@+id/expense_item_description"
             android:layout_weight="1"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="@dimen/expense_margin_top_title"
+            android:layout_marginLeft="@dimen/expense_margin_left_title"
+            android:layout_marginEnd="@dimen/expense_margin_end_title"
+            android:layout_marginRight="@dimen/expense_margin_right_title"
+            android:layout_marginBottom="@dimen/expense_margin_bottom_title"
             android:paddingLeft="16dp"
-            android:textSize="24sp"
+            android:textSize="@dimen/expense_text_size_title"
             android:textColor="?attr/colorPrimary">
         </TextView>
 
@@ -35,12 +35,12 @@
             android:id="@+id/expense_item_price"
             android:gravity="right"
             android:layout_weight="1"
-            android:paddingTop="35dp"
-            android:paddingLeft="16dp"
-            android:paddingEnd="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="4dp"
-            android:textSize="24sp"
+            android:paddingTop="@dimen/expense_padding_top_price"
+            android:paddingLeft="@dimen/expense_padding_left_price"
+            android:paddingEnd="@dimen/expense_padding_end_price"
+            android:paddingRight="@dimen/expense_padding_right_price"
+            android:paddingBottom="@dimen/expense_padding_bottom_price"
+            android:textSize="@dimen/expense_text_size_price"
             android:alpha="0.54"
             android:textColor="@color/colorBlack">
         </TextView>
