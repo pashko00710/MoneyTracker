@@ -1,40 +1,44 @@
 package com.example.moneytracker;
 
-import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
+import com.example.moneytracker.MyListCosts;
+import com.example.moneytracker.R;
+import com.example.moneytracker.MyAdapter;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@EFragment(R.layout.fragment_expense)
 public class ExpenseFragment extends Fragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View fragmentView =  inflater.inflate(R.layout.fragment_expense, container, false);
-        CoordinatorLayout rootLayout = (CoordinatorLayout) fragmentView.findViewById(R.id.expense_fragment_coordinatorlayout);
-        FloatingActionButton expenseFabBtn = (FloatingActionButton) fragmentView.findViewById(R.id.expense_fabBtn);
+    @ViewById(R.id.expense_fragment_coordinatorlayout)
+    CoordinatorLayout rootLayout;
+//
+    @ViewById(R.id.expense_fabBtn)
+    FloatingActionButton expenseFabBtn;
+//
+    @ViewById(R.id.fragment_expense_waste)
+    RecyclerView expensesListRecyclerView;
+//
+//    @Bean
+//    MyAdapter expensesAdapter;
 
-        initInstances(rootLayout ,expenseFabBtn);
-
-        this.initExpensesRecylerView(fragmentView);
-        return fragmentView;
-    }
-
-    private void initInstances(final CoordinatorLayout rootLayout, FloatingActionButton expenseFabBtn) {
-        expenseFabBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(rootLayout, "Snackbar in ExpensesFragment!", Snackbar.LENGTH_SHORT)
+    @Click(R.id.expense_fabBtn)
+    public void fabClick() {
+//        if(getView()!= null && expenseFabBtn.isPressed()) {
+            Snackbar.make(rootLayout, "Snackbar in ExpensesFragment!", Snackbar.LENGTH_SHORT)
                         .setAction("Undo", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -42,12 +46,11 @@ public class ExpenseFragment extends Fragment {
                             }
                         })
                         .show();
-            }
-        });
+//        }
     }
 
-    private void initExpensesRecylerView(View fragmentView) {
-        RecyclerView expensesListRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.fragment_expense_waste);
+    @AfterViews
+    public void initExpensesRecylerView() {
         expensesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         MyAdapter expensesAdapter = new MyAdapter(getExpenses());
         expensesListRecyclerView.setAdapter(expensesAdapter);
