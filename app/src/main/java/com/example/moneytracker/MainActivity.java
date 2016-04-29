@@ -12,11 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.moneytracker.CategoriesFragment_;
-import com.example.moneytracker.ExpenseFragment_;
+import com.example.moneytracker.CategoriesFragment;
+import com.example.moneytracker.ExpenseFragment;
 import com.example.moneytracker.R;
-import com.example.moneytracker.SettingsFragment_;
-import com.example.moneytracker.StatisticsFragment_;
+import com.example.moneytracker.SettingsFragment;
+import com.example.moneytracker.StatisticsFragment;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;

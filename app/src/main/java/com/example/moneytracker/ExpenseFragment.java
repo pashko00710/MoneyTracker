@@ -2,7 +2,6 @@ package com.example.moneytracker;
 
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,27 +24,21 @@ public class ExpenseFragment extends Fragment {
 
     @ViewById(R.id.expense_fragment_coordinatorlayout)
     CoordinatorLayout rootLayout;
-//
+
     @ViewById(R.id.expense_fabBtn)
     FloatingActionButton expenseFabBtn;
-//
+
     @ViewById(R.id.fragment_expense_waste)
     RecyclerView expensesListRecyclerView;
-//
+
 //    @Bean
 //    MyAdapter expensesAdapter;
 
     @Click(R.id.expense_fabBtn)
     public void fabClick() {
-//        if(getView()!= null && expenseFabBtn.isPressed()) {
-            Snackbar.make(rootLayout, "Snackbar in ExpensesFragment!", Snackbar.LENGTH_SHORT)
-                        .setAction("Undo", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
 
-                            }
-                        })
-                        .show();
+        DetailsExpenseActivity_.intent(this).start();
+//        if(getView()!= null && expenseFabBtn.isPressed()) {
 //        }
     }
 

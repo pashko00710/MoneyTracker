@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsExpenseActivity">
+
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:padding="@dimen/activity_vertical_margin"
+        android:background="@color/colorWhite"
+        android:id="@+id/gridLayout">
+
+        <TextView
+
+            android:text="Sum"
+            android:textSize="@dimen/detailsexpense_textview_textsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detailsexpense_sum_margintop"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+            <EditText
+                android:hint="Enter amount"
+                android:numeric="integer"
+                android:inputType="number"
+                android:layout_width="@dimen/detailsexpense_edittext_width"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:text="Note"
+            android:textSize="@dimen/detailsexpense_textview_textsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detailsexpense_note_margintop"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <EditText
+            android:hint="Write a note"
+            android:layout_width="@dimen/detailsexpense_edittext_width"
+            android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:gravity="fill"
+            android:textSize="@dimen/detailsexpense_textview_textsize"
+            android:text="Categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.AppCompatSpinner
+            android:hint="Books"
+            android:layout_gravity="right"
+            android:layout_width="@dimen/detailsexpense_edittext_width"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"/>
+
+        <TextView
+            android:gravity="fill"
+            android:textSize="@dimen/detailsexpense_textview_textsize"
+            android:text="Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/add_expense_date"
+            android:inputType="date"
+            android:layout_width="@dimen/detailsexpense_edittext_width"
+            android:layout_gravity="right"
+            android:focusableInTouchMode="false"
+            android:cursorVisible="false"
+            android:onClick="setDate"/>
+
+
+
+    </GridLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:id="@+id/linearLayout"
+        android:layout_marginBottom="27dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_gravity="bottom|right"
+            android:gravity="center"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/detailsexpense_button_marginleft"
+            android:layout_marginStart="@dimen/detailsexpense_button_marginstart"
+            android:alpha="0.7"
+            android:id="@+id/button"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ready"
+        android:gravity="center"
+            android:layout_alignBaseline="@+id/button"
+            android:layout_alignBottom="@+id/button"
+            android:layout_toRightOf="@+id/button"
+            android:layout_toEndOf="@+id/button"
+            android:alpha="0.8"
+            android:textColor="@color/colorPrimary"/>
+    </LinearLayout>
+
+</RelativeLayout>

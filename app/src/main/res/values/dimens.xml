@@ -26,4 +26,12 @@
     <dimen name="expense_padding_left_price">16dp</dimen>
     <dimen name="expense_padding_right_price">16dp</dimen>
     <dimen name="expense_padding_end_price">16dp</dimen>
+
+    <!-- DetailsExpenseActivity strings value -->
+    <dimen name="detailsexpense_sum_margintop">22dp</dimen>
+    <dimen name="detailsexpense_note_margintop">22dp</dimen>
+    <dimen name="detailsexpense_edittext_width">235dp</dimen>
+    <dimen name="detailsexpense_button_marginleft">170dp</dimen>
+    <dimen name="detailsexpense_button_marginstart">170dp</dimen>
+    <dimen name="detailsexpense_textview_textsize">16sp</dimen>
 </resources>
