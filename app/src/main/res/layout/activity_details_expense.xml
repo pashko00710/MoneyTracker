@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsExpenseActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DetailsExpenseActivity_">
 
 
     <GridLayout
@@ -25,11 +26,15 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+            android:id="@+id/detailsexpense_textinputlayout_sum"
+            app:errorEnabled="true">
             <EditText
                 android:hint="Enter amount"
                 android:numeric="integer"
                 android:inputType="number"
+                android:maxLength="12"
+                android:id="@+id/detailsexpense_edittext_sum"
                 android:layout_width="@dimen/detailsexpense_edittext_width"
                 android:layout_height="wrap_content"/>
         </android.support.design.widget.TextInputLayout>
@@ -43,11 +48,15 @@
         <android.support.design.widget.TextInputLayout
             android:layout_gravity="right"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsexpense_textinputlayout_note"
+            app:errorEnabled="true">
         <EditText
-            android:hint="Write a note"
             android:layout_width="@dimen/detailsexpense_edittext_width"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsexpense_edittext_note"
+            android:hint="Write a note"
+            android:maxLength="15"/>
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -58,10 +67,12 @@
             android:layout_height="wrap_content"/>
         <android.support.v7.widget.AppCompatSpinner
             android:hint="Books"
+            android:id="@+id/detailsexpense_spinner"
             android:layout_gravity="right"
             android:layout_width="@dimen/detailsexpense_edittext_width"
             android:layout_height="wrap_content"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dialog"
+            android:entries="@array/categories"/>
 
         <TextView
             android:gravity="fill"
@@ -75,8 +86,7 @@
             android:layout_width="@dimen/detailsexpense_edittext_width"
             android:layout_gravity="right"
             android:focusableInTouchMode="false"
-            android:cursorVisible="false"
-            android:onClick="setDate"/>
+            android:cursorVisible="false" />
 
 
 
@@ -105,20 +115,21 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="@dimen/detailsexpense_button_marginleft"
             android:layout_marginStart="@dimen/detailsexpense_button_marginstart"
-            android:alpha="0.7"
-            android:id="@+id/button"
+            android:alpha="0.9"
+            android:id="@+id/detailsexpense_button_cancel"
             android:textColor="@color/colorPrimary"/>
 
         <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+            android:id="@+id/detailsexpense_button_ready"
         android:text="Ready"
         android:gravity="center"
-            android:layout_alignBaseline="@+id/button"
-            android:layout_alignBottom="@+id/button"
-            android:layout_toRightOf="@+id/button"
-            android:layout_toEndOf="@+id/button"
-            android:alpha="0.8"
+            android:layout_alignBaseline="@+id/detailsexpense_button_cancel"
+            android:layout_alignBottom="@+id/detailsexpense_button_cancel"
+            android:layout_toRightOf="@+id/detailsexpense_button_cancel"
+            android:layout_toEndOf="@+id/detailsexpense_button_cancel"
+            android:alpha="0.9"
             android:textColor="@color/colorPrimary"/>
     </LinearLayout>
 
