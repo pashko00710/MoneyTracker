@@ -34,4 +34,6 @@
     <dimen name="detailsexpense_button_marginleft">170dp</dimen>
     <dimen name="detailsexpense_button_marginstart">170dp</dimen>
     <dimen name="detailsexpense_textview_textsize">16sp</dimen>
+    <dimen name="detailsexpense_textview_margintop">22dp</dimen>
+    <dimen name="detailsexpense_edittext_margintop">22dp</dimen>
 </resources>
