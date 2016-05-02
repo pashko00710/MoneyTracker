@@ -1,15 +1,15 @@
-package com.example.moneytracker;
+package com.example.moneytracker.ui.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Window;
+import android.support.v7.app.AppCompatActivity;
+
+import com.example.moneytracker.R;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 
 @EActivity(R.layout.activity_splash)
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
     @AfterViews
     void ready() {
         doInBackground();

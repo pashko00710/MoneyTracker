@@ -1,4 +1,4 @@
-package com.example.moneytracker;
+package com.example.moneytracker.ui.activity;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,11 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.moneytracker.CategoriesFragment;
-import com.example.moneytracker.ExpenseFragment;
 import com.example.moneytracker.R;
-import com.example.moneytracker.SettingsFragment;
-import com.example.moneytracker.StatisticsFragment;
+import com.example.moneytracker.ui.fragment.CategoriesFragment_;
+import com.example.moneytracker.ui.fragment.ExpenseFragment_;
+import com.example.moneytracker.ui.fragment.SettingsFragment_;
+import com.example.moneytracker.ui.fragment.StatisticsFragment_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @AfterViews
     public void ready() {
-        //        if(savedInstanceState == null) {
+//                if(savedInstanceState == null) {
 //            replaceFragment(new ExpenseFragment());
 //        }
+        setTitle("ExpenseFragment");
+        replaceFragment(new ExpenseFragment_());
         setupActionBar();
         setupDrawerLayout();
         backStack();
@@ -107,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        setTitle(getString(R.string.app_name));
     }
 
     @Override
@@ -146,8 +147,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new SettingsFragment_());
                 break;
             default:
-//                setTitle("ExpenseFragmentWaste");
-                replaceFragment(new ExpenseFragment_());
+//                setTitle("ExpenseFragment");
+//                replaceFragment(new ExpenseFragment_());
                 break;
         }
         return true;

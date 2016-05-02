@@ -1,4 +1,4 @@
-package com.example.moneytracker;
+package com.example.moneytracker.ui.fragment;
 
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.example.moneytracker.MyListCategory;
+import com.example.moneytracker.model.MyListCategory;
 import com.example.moneytracker.R;
 import com.example.moneytracker.CategoriesAdapter;
 

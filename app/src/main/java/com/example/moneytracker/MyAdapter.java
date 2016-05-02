@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.moneytracker.model.MyListCosts;
+
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
@@ -22,7 +24,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             price = (TextView) v.findViewById(R.id.expense_item_price);
         }
 
-
+        //Оформляйте коммит + пуш, буду смотреть у себя
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)

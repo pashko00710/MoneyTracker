@@ -1,4 +1,4 @@
-package com.example.moneytracker;
+package com.example.moneytracker.model;
 
 /**
  * Created by Павел on 19.04.2016.

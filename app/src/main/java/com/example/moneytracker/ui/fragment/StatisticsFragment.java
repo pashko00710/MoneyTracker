@@ -1,4 +1,4 @@
-package com.example.moneytracker;
+package com.example.moneytracker.ui.fragment;
 
 import android.support.v4.app.Fragment;
 
