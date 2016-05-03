@@ -31,12 +31,13 @@
             app:errorEnabled="true">
             <EditText
                 android:hint="Enter amount"
+                android:id="@+id/detailsexpense_edittext_sum"
+                android:layout_width="@dimen/detailsexpense_edittext_width"
+                android:layout_height="wrap_content"
                 android:numeric="integer"
                 android:inputType="number"
                 android:maxLength="12"
-                android:id="@+id/detailsexpense_edittext_sum"
-                android:layout_width="@dimen/detailsexpense_edittext_width"
-                android:layout_height="wrap_content"/>
+                android:digits="1234567890,.-"/>
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -56,7 +57,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/detailsexpense_edittext_note"
             android:hint="Write a note"
-            android:maxLength="15"/>
+            android:maxLength="35"/>
         </android.support.design.widget.TextInputLayout>
 
         <TextView
