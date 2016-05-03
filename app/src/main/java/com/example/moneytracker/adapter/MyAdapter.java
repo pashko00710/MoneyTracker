@@ -1,4 +1,4 @@
-package com.example.moneytracker;
+package com.example.moneytracker.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.moneytracker.R;
 import com.example.moneytracker.model.MyListCosts;
 
 import java.util.List;

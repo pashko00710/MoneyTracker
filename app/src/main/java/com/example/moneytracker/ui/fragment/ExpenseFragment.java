@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.moneytracker.ui.activity.DetailsExpenseActivity_;
-import com.example.moneytracker.MyAdapter;
+import com.example.moneytracker.adapter.MyAdapter;
 import com.example.moneytracker.model.MyListCosts;
 import com.example.moneytracker.R;
 

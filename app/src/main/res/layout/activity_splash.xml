@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/header_background"
-    tools:context=".ui.activity.SplashActivity_">
+    android:background="@mipmap/header_background">
 
 
 </RelativeLayout>

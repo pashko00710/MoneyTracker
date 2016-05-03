@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.example.moneytracker.model.MyListCategory;
 import com.example.moneytracker.R;
-import com.example.moneytracker.CategoriesAdapter;
+import com.example.moneytracker.adapter.CategoriesAdapter;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
