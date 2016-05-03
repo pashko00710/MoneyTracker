@@ -32,4 +32,7 @@ dependencies {
     compile 'com.android.support:support-v13:+'
     apt "org.androidannotations:androidannotations:4.0.0"
     compile "org.androidannotations:androidannotations-api:4.0.0"
+    apt "com.github.Raizlabs.DBFlow:dbflow-processor:+"
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:+"
+    compile "com.github.Raizlabs.DBFlow:dbflow:+"
 }
