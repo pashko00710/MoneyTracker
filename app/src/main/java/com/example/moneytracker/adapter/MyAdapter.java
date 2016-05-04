@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.moneytracker.R;
-import com.example.moneytracker.model.MyListCosts;
+import com.example.moneytracker.database.model.Expenses;
 
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
-    private List<MyListCosts> mDataset;
+    private List<Expenses> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView description;
@@ -24,12 +24,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             description = (TextView) v.findViewById(R.id.expense_item_description);
             price = (TextView) v.findViewById(R.id.expense_item_price);
         }
-
-        //Оформляйте коммит + пуш, буду смотреть у себя
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<MyListCosts> myDataset) {
+    public MyAdapter(List<Expenses> myDataset) {
         mDataset = myDataset;
     }
 
@@ -49,8 +47,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.description.setText(mDataset.get(position).getName());
-        holder.price.setText(mDataset.get(position).getPriceString());
+        Expenses expense = mDataset.get(position);
+        holder.description.setText(expense.getDescription());
+        holder.price.setText(expense.getPrice());
 
 
     }

@@ -34,7 +34,6 @@
                 android:id="@+id/detailsexpense_edittext_sum"
                 android:layout_width="@dimen/detailsexpense_edittext_width"
                 android:layout_height="wrap_content"
-                android:numeric="integer"
                 android:inputType="number"
                 android:maxLength="12"
                 android:digits="1234567890,.-"/>
