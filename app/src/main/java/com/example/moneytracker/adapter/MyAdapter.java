@@ -19,10 +19,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView description;
         public TextView price;
+        public TextView date;
+        public TextView category;
         public ViewHolder(View v) {
             super(v);
             description = (TextView) v.findViewById(R.id.expense_item_description);
             price = (TextView) v.findViewById(R.id.expense_item_price);
+            date = (TextView) v.findViewById(R.id.expense_item_date);
+            category = (TextView) v.findViewById(R.id.expense_item_category);
         }
     }
 
@@ -49,6 +53,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - replace the contents of the view with that element
         Expenses expense = mDataset.get(position);
         holder.description.setText(expense.getDescription());
+        holder.date.setText(expense.getDate());
+        holder.category.setText(expense.getCategory());
         holder.price.setText(expense.getPrice());
 
 

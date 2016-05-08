@@ -52,9 +52,9 @@ public class CategoriesFragment extends Fragment {
     @AfterViews
     public void initExpensesRecylerView() {
         categoriesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if(Categories.getAllCategories().isEmpty()) {
-            insertCategories();
-        }
+//        if(Categories.getAllCategories().isEmpty()) {
+//            insertCategories();
+//        }
 //        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getCategories());
 //        categoriesListRecyclerView.setAdapter(categoriesAdapter);
     }
@@ -101,11 +101,13 @@ public class CategoriesFragment extends Fragment {
         });
     }
 
-    private void insertCategories() {
-        Categories category = new Categories();
-        category.setName("Food");
-        category.insert();
-        category.setName("Cinema");
-        category.insert();
-    }
+//    private void insertCategories() {
+//        Categories category = new Categories();
+//        category.setName("Food");
+//        category.insert();
+//        category.setName("Cinema");
+//        category.insert();
+//        category.setName("Transport");
+//        category.insert();
+//    }
 }

@@ -2,17 +2,18 @@ package com.example.moneytracker.ui.activity;
 
 
 import android.app.DatePickerDialog;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.moneytracker.R;
+import com.example.moneytracker.adapter.SpinnerCategoriesAdapter;
+import com.example.moneytracker.database.model.Categories;
+import com.example.moneytracker.database.model.Expenses;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -21,7 +22,10 @@ import org.androidannotations.annotations.ViewById;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+
+import static com.example.moneytracker.database.model.Categories.getAllCategories;
 
 @EActivity(R.layout.activity_details_expense)
 public class DetailsExpenseActivity extends AppCompatActivity {
@@ -29,14 +33,13 @@ public class DetailsExpenseActivity extends AppCompatActivity {
     private static final String EMPTY_STRING = "";
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
+    SpinnerCategoriesAdapter adapter;
+//    Categories category;
     Calendar calendar  = Calendar.getInstance();
-    ArrayAdapter<CharSequence> adapter;
+//    ArrayAdapter<CharSequence> adapter;
 
     @ViewById(R.id.detailsexpense_spinner)
     Spinner spinner;
-
-//    @ViewById
-//    ArrayAdapter<CharSequence> adapter;
 
     @ViewById(R.id.detailsexpense_textinputlayout_sum)
     TextInputLayout textInputLayoutSum;
@@ -56,7 +59,10 @@ public class DetailsExpenseActivity extends AppCompatActivity {
     @ViewById(R.id.add_expense_date)
     EditText expenseDate;
 
-    private void errorTextInput() {
+    @ViewById(R.id.expense_item_category)
+    TextView categorySpinner;
+
+    private boolean errorTextInput() {
         int textLengthNote = editTextNote.getText().length();
         int textLengthSum = editTextSum.getText().length();
 
@@ -71,13 +77,20 @@ public class DetailsExpenseActivity extends AppCompatActivity {
         } else {
             textInputLayoutSum.setError(EMPTY_STRING);
         }
+
+        if(textInputLayoutSum.getError() == EMPTY_STRING && textInputLayoutNote.getError() == EMPTY_STRING) {
+            return false;
+        }
+        return true;
     }
 
     private void initAdapterSpinner() {
-        adapter = ArrayAdapter.createFromResource(DetailsExpenseActivity.this,
-                R.array.categories, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter = new SpinnerCategoriesAdapter(this, getDataListSpinner());
         spinner.setAdapter(adapter);
+    }
+
+    private List<Categories> getDataListSpinner() {
+        return getAllCategories();
     }
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
@@ -92,7 +105,7 @@ public class DetailsExpenseActivity extends AppCompatActivity {
     @AfterViews
     public void ready() {
         setTitle(getString(R.string.detailsexpense_titlename));
-        expenseDate.setHint(dateFormat.format(calendar.getTime()));
+        expenseDate.setText(dateFormat.format(calendar.getTime()));
         initAdapterSpinner();
     }
 
@@ -102,15 +115,16 @@ public class DetailsExpenseActivity extends AppCompatActivity {
     }
     @Click(R.id.detailsexpense_button_ready)
     public void onClickButtonReady() {
-        Snackbar.make(gridLayout, "Clicked on ready!", Snackbar.LENGTH_SHORT)
-                .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                })
-                .show();
-        errorTextInput();
+        if(!errorTextInput()) {
+            Categories category = (Categories) spinner.getSelectedItem();
+            Expenses expense = new Expenses();
+            expense.setPrice(editTextSum.getText().toString());
+            expense.setDate(expenseDate.getText().toString());
+            expense.setDescription(editTextNote.getText().toString());
+            expense.associateCategory(category);
+            expense.insert();
+            onBackPressed();
+        }
     }
 
     @Click(R.id.add_expense_date)

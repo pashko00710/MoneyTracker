@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.moneytracker.R;
 import com.example.moneytracker.adapter.MyAdapter;
+import com.example.moneytracker.database.model.Categories;
 import com.example.moneytracker.database.model.Expenses;
 import com.example.moneytracker.ui.activity.DetailsExpenseActivity_;
 
@@ -47,6 +48,9 @@ public class ExpenseFragment extends Fragment {
         expensesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if(Expenses.getAllExpenses().isEmpty()) {
             insertExpenses();
+        }
+        if(Categories.getAllCategories().isEmpty()) {
+            insertCategories();
         }
 //        MyAdapter expensesAdapter = new MyAdapter(getExpenses());
 //        expensesListRecyclerView.setAdapter(expensesAdapter);
@@ -100,6 +104,17 @@ public class ExpenseFragment extends Fragment {
         expenses.insert();
         expenses.setPrice("1200");
         expenses.setDescription("Car");
+        expenses.setDate("10.10.10");
         expenses.insert();
+    }
+
+    private void insertCategories() {
+        Categories category = new Categories();
+        category.setName("Food");
+        category.insert();
+        category.setName("Cinema");
+        category.insert();
+        category.setName("Transport");
+        category.insert();
     }
 }
