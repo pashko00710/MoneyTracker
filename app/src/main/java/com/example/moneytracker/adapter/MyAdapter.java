@@ -49,15 +49,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         Expenses expense = mDataset.get(position);
         holder.description.setText(expense.getDescription());
         holder.date.setText(expense.getDate());
-        holder.category.setText(expense.getCategory());
+//        holder.category.setText(expense.getCategory().getName());
         holder.price.setText(expense.getPrice());
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

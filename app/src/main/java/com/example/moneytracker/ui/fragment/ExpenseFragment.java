@@ -52,19 +52,7 @@ public class ExpenseFragment extends Fragment {
         if(Categories.getAllCategories().isEmpty()) {
             insertCategories();
         }
-//        MyAdapter expensesAdapter = new MyAdapter(getExpenses());
-//        expensesListRecyclerView.setAdapter(expensesAdapter);
     }
-
-//    private List<MyListCosts> getExpenses() {
-//        List<MyListCosts> expenses = new ArrayList<>();
-//        expenses.add(new MyListCosts("Food", 1000));
-//        expenses.add(new MyListCosts("Study", 2000));
-//        expenses.add(new MyListCosts("Cinema", 3000));
-//        expenses.add(new MyListCosts("Cloth", 4000));
-//        expenses.add(new MyListCosts("Weapon", 5000));
-//        return expenses;
-//    }
 
     @Override
     public void onResume() {

@@ -34,8 +34,8 @@ public class Expenses extends BaseModel {
                 .toForeignKeyContainer(category);
     }
 
-    public String getCategory() {
-        return String.valueOf(this.category);
+    public Categories getCategory() {
+        return category.load();
     }
 
     public void setPrice(String price) {
