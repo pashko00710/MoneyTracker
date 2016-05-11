@@ -52,7 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Expenses expense = mDataset.get(position);
         holder.description.setText(expense.getDescription());
         holder.date.setText(expense.getDate());
-//        holder.category.setText(expense.getCategory().getName());
+        holder.category.setText(expense.getCategory().getName());
         holder.price.setText(expense.getPrice());
     }
 

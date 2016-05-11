@@ -26,6 +26,7 @@
     <dimen name="expense_padding_left_price">16dp</dimen>
     <dimen name="expense_padding_right_price">16dp</dimen>
     <dimen name="expense_padding_end_price">16dp</dimen>
+    <dimen name="fragment_fab_margintop">420dp</dimen>
 
     <!-- DetailsExpenseActivity strings value -->
     <dimen name="detailsexpense_sum_margintop">22dp</dimen>

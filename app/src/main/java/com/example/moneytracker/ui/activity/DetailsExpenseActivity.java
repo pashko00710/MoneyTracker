@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.moneytracker.R;
 import com.example.moneytracker.adapter.SpinnerCategoriesAdapter;
@@ -173,6 +174,7 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
                     @Override
                     public void processModel(Expenses expense) {
                         Categories category = (Categories) spinner.getSelectedItem();
+                        Log.d("??", String.valueOf(category));
                         expense.setPrice(editTextSum.getText().toString());
                         expense.setDate(expenseDate.getText().toString());
                         expense.setDescription(editTextNote.getText().toString());
@@ -190,14 +192,14 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
                 .success(new Transaction.Success() {
                     @Override
                     public void onSuccess(Transaction transaction) {
-                        Log.d("Here1", "Normal");
+                        Toast.makeText(DetailsExpenseActivity.this, "Entry added", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 })
                 .error(new Transaction.Error() {
                     @Override
                     public void onError(Transaction transaction, Throwable error) {
-                        Log.d("Here2", "Not Normal");
+                        Toast.makeText(DetailsExpenseActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                 }).build();
 

@@ -46,9 +46,6 @@ public class ExpenseFragment extends Fragment {
     @AfterViews
     public void initExpensesRecylerView() {
         expensesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if(Expenses.getAllExpenses().isEmpty()) {
-            insertExpenses();
-        }
         if(Categories.getAllCategories().isEmpty()) {
             insertCategories();
         }
@@ -82,18 +79,6 @@ public class ExpenseFragment extends Fragment {
 //                ​loader = null;
             }
         });
-    }
-
-    private void insertExpenses() {
-        Expenses expenses = new Expenses();
-        expenses.setPrice("1300");
-        expenses.setDescription("Cinema");
-        expenses.setDate("12.05.2021");
-        expenses.insert();
-        expenses.setPrice("1200");
-        expenses.setDescription("Car");
-        expenses.setDate("10.10.10");
-        expenses.insert();
     }
 
     private void insertCategories() {
