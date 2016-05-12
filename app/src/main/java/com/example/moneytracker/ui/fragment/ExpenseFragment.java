@@ -26,6 +26,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.api.BackgroundExecutor;
 
 import java.util.List;
 
@@ -44,6 +45,8 @@ public class ExpenseFragment extends Fragment {
 
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItem;
+
+    private static final String FILTER_ID = "filter_id";
 
     @Click(R.id.expense_fabBtn)
     public void fabClick() {
@@ -77,13 +80,14 @@ public class ExpenseFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                loadExpenses(newText);
+                BackgroundExecutor.cancelAll(FILTER_ID, true);
+                queryExpenses(newText);
                 return false;
             }
         });
     }
 
-    @Background
+    @Background(delay = 700, id = FILTER_ID)
     public void queryExpenses(String filter) {
         loadExpenses(filter);
     }
