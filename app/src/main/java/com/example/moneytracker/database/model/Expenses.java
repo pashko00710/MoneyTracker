@@ -61,6 +61,13 @@ public class Expenses extends BaseModel {
         return this.date;
     }
 
+    public static List<Expenses> getAllExpenses(String filter) {
+        return SQLite.select()
+                .from(Expenses.class)
+                .where(Expenses_Table.description.like("%"+filter+"%"))
+                .queryList();
+    }
+
     public static List<Expenses> getAllExpenses() {
         return SQLite.select()
                 .from(Expenses.class)
