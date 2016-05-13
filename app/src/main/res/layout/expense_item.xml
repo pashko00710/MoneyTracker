@@ -7,20 +7,26 @@
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:padding="16dp"
         card_view:cardUseCompatPadding="true"
         card_view:cardElevation = "4dp"
-        card_view:cardBackgroundColor = "#c4c1c1"
-        card_view:cardCornerRadius="3dp">
+        card_view:cardCornerRadius="4dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/expense_item_description"
             android:layout_weight="1"
-            android:textSize="@dimen/nameTextSize"
-            android:textColor="@color/colorBlack">
+            android:layout_marginTop="@dimen/expense_margin_top_title"
+            android:layout_marginLeft="@dimen/expense_margin_left_title"
+            android:layout_marginEnd="@dimen/expense_margin_end_title"
+            android:layout_marginRight="@dimen/expense_margin_right_title"
+            android:layout_marginBottom="@dimen/expense_margin_bottom_title"
+            android:paddingLeft="16dp"
+            android:textSize="@dimen/expense_text_size_title"
+            android:textColor="?attr/colorPrimary">
         </TextView>
 
         <TextView
@@ -29,7 +35,13 @@
             android:id="@+id/expense_item_price"
             android:gravity="right"
             android:layout_weight="1"
-            android:textSize="@dimen/nameTextSize"
+            android:paddingTop="@dimen/expense_padding_top_price"
+            android:paddingLeft="@dimen/expense_padding_left_price"
+            android:paddingEnd="@dimen/expense_padding_end_price"
+            android:paddingRight="@dimen/expense_padding_right_price"
+            android:paddingBottom="@dimen/expense_padding_bottom_price"
+            android:textSize="@dimen/expense_text_size_price"
+            android:alpha="0.54"
             android:textColor="@color/colorBlack">
         </TextView>
     </android.support.v7.widget.CardView>

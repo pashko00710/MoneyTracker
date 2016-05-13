@@ -1,6 +1,5 @@
-package com.example.moneytracker;
+package com.example.moneytracker.ui.activity;
 
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,25 +12,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.moneytracker.R;
+import com.example.moneytracker.ui.fragment.CategoriesFragment_;
+import com.example.moneytracker.ui.fragment.ExpenseFragment_;
+import com.example.moneytracker.ui.fragment.SettingsFragment_;
+import com.example.moneytracker.ui.fragment.StatisticsFragment_;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+@EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String MY_TAG = "myLogs";
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    @ViewById(R.id.toolbar)
+    Toolbar toolbar;
+    @ViewById(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @ViewById(R.id.navigation_view)
+    NavigationView navigationView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+    @AfterViews
+    public void ready() {
+//                if(savedInstanceState == null) {
+//            replaceFragment(new ExpenseFragment());
+//        }
+        setTitle("ExpenseFragment");
+        replaceFragment(new ExpenseFragment_());
         setupActionBar();
         setupDrawerLayout();
-        if(savedInstanceState == null) {
-            replaceFragment(new ExpenseFragment());
-        }
+        backStack();
+    }
 
+    private void backStack() {
         getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
 
             @Override
@@ -48,19 +61,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void updateTitleAndDrawer(Fragment fragment) {
         String fragClassName = fragment.getClass().getName();
 
-        if (fragClassName.equals(ExpenseFragment.class.getName())) {
+        if (fragClassName.equals(ExpenseFragment_.class.getName())) {
             setTitle("ExpenseFragment");
             navigationView.setCheckedItem(R.id.drawer_expenses);
             //set selected item position, etc
-        } else if (fragClassName.equals(CategoriesFragment.class.getName())) {
+        } else if (fragClassName.equals(CategoriesFragment_.class.getName())) {
             setTitle("CategoriesFragment");
             navigationView.setCheckedItem(R.id.drawer_categories);
             //set selected item position, etc
-        } else if (fragClassName.equals(StatisticsFragment.class.getName())) {
+        } else if (fragClassName.equals(StatisticsFragment_.class.getName())) {
             setTitle("StatisticsFragment");
             navigationView.setCheckedItem(R.id.drawer_statistics);
             //set selected item position, etc
-        } else if (fragClassName.equals(SettingsFragment.class.getName())) {
+        } else if (fragClassName.equals(SettingsFragment_.class.getName())) {
             setTitle("SettingsFragment");
             navigationView.setCheckedItem(R.id.drawer_settings);
             //set selected item position, etc
@@ -84,21 +97,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setupActionBar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar); ActionBar actionBar = getSupportActionBar();
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     private void setupDrawerLayout() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        setTitle(getString(R.string.app_name));
     }
 
     @Override
@@ -122,23 +132,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(item.getItemId()) {
             case R.id.drawer_expenses:
                 setTitle("ExpenseFragment");
-                replaceFragment(new ExpenseFragment());
+                replaceFragment(new ExpenseFragment_());
                 break;
             case R.id.drawer_categories:
                 setTitle("CategoriesFragment");
-                replaceFragment(new CategoriesFragment());
+                replaceFragment(new CategoriesFragment_());
                 break;
             case R.id.drawer_statistics:
                 setTitle("StatisticsFragment");
-                replaceFragment(new StatisticsFragment());
+                replaceFragment(new StatisticsFragment_());
                 break;
             case R.id.drawer_settings:
                 setTitle("SettingsFragment");
-                replaceFragment(new SettingsFragment());
+                replaceFragment(new SettingsFragment_());
                 break;
             default:
-//                setTitle("ExpenseFragmentWaste");
-//                replaceFragment(new ExpenseFragmentWaste());
+//                setTitle("ExpenseFragment");
+//                replaceFragment(new ExpenseFragment_());
                 break;
         }
         return true;

@@ -1,4 +1,4 @@
-package com.example.moneytracker;
+package com.example.moneytracker.model;
 
 /**
  * Created by Павел on 19.04.2016.
@@ -8,7 +8,7 @@ public class MyListCosts {
     private int price;
 
 
-    MyListCosts(String _name, int _price) {
+    public MyListCosts(String _name, int _price) {
         this.name = _name;
         this.price = _price;
     }
