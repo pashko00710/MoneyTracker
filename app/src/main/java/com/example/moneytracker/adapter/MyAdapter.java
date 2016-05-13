@@ -7,29 +7,31 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.moneytracker.R;
-import com.example.moneytracker.model.MyListCosts;
+import com.example.moneytracker.database.model.Expenses;
 
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
-    private List<MyListCosts> mDataset;
+    private List<Expenses> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView description;
         public TextView price;
+        public TextView date;
+        public TextView category;
         public ViewHolder(View v) {
             super(v);
             description = (TextView) v.findViewById(R.id.expense_item_description);
             price = (TextView) v.findViewById(R.id.expense_item_price);
+            date = (TextView) v.findViewById(R.id.expense_item_date);
+            category = (TextView) v.findViewById(R.id.expense_item_category);
         }
-
-        //Оформляйте коммит + пуш, буду смотреть у себя
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<MyListCosts> myDataset) {
+    public MyAdapter(List<Expenses> myDataset) {
         mDataset = myDataset;
     }
 
@@ -47,12 +49,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.description.setText(mDataset.get(position).getName());
-        holder.price.setText(mDataset.get(position).getPriceString());
-
-
+        Expenses expense = mDataset.get(position);
+        holder.description.setText(expense.getDescription());
+        holder.date.setText(expense.getDate());
+        holder.category.setText(expense.getCategory().getName());
+        holder.price.setText(expense.getPrice());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

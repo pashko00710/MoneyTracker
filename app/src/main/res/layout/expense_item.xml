@@ -30,6 +30,23 @@
         </TextView>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:id="@+id/expense_item_category"
+            android:layout_marginBottom="45dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/expense_item_date"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="16dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/expense_item_price"

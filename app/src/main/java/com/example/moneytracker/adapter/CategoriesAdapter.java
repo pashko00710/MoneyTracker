@@ -7,13 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.moneytracker.R;
-import com.example.moneytracker.model.MyListCategory;
+import com.example.moneytracker.database.model.Categories;
 
 import java.util.List;
 
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesHolder> {
-    private List<MyListCategory> categoryList;
+    private List<Categories> categoryList;
 
     class CategoriesHolder extends RecyclerView.ViewHolder {
         public TextView name;
@@ -25,7 +25,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     }
 
-    public CategoriesAdapter(List<MyListCategory> categoryList) {
+    public CategoriesAdapter(List<Categories> categoryList) {
         this.categoryList = categoryList;
     }
 
@@ -39,7 +39,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public void onBindViewHolder(CategoriesHolder holder, int position) {
-        holder.name.setText(categoryList.get(position).getName());
+        Categories category = categoryList.get(position);
+        holder.name.setText(category.getName());
     }
 
     @Override
