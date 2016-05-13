@@ -10,19 +10,27 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.example.moneytracker.R;
 import com.example.moneytracker.adapter.CategoriesAdapter;
 import com.example.moneytracker.database.model.Categories;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.api.BackgroundExecutor;
 
 import java.util.List;
 
+@OptionsMenu(R.menu.search_menu)
 @EFragment(R.layout.fragment_categories)
 public class CategoriesFragment extends Fragment {
 
@@ -34,6 +42,11 @@ public class CategoriesFragment extends Fragment {
 
     @ViewById(R.id.fragment_categories)
     RecyclerView categoriesListRecyclerView;
+
+    @OptionsMenuItem(R.id.search_action)
+    MenuItem menuItem;
+
+    private static final String FILTER_ID = "filter_id";
 
     @Click(R.id.categories_fabBtn)
     public void fabClick() {
@@ -52,37 +65,47 @@ public class CategoriesFragment extends Fragment {
     @AfterViews
     public void initExpensesRecylerView() {
         categoriesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        if(Categories.getAllCategories().isEmpty()) {
-//            insertCategories();
-//        }
-//        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getCategories());
-//        categoriesListRecyclerView.setAdapter(categoriesAdapter);
     }
-
-//    private List<MyListCategory> getCategories() {
-//        List<MyListCategory> categories = new ArrayList<>();
-//        categories.add(new MyListCategory("Food"));
-//        categories.add(new MyListCategory("Study"));
-//        categories.add(new MyListCategory("Cloth"));
-//        categories.add(new MyListCategory("Cinema"));
-//        categories.add(new MyListCategory("Weapon"));
-//        return categories;
-//    }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadCategories();
+        loadCategories("");
     }
 
-    private void loadCategories(){
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.search_title));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                BackgroundExecutor.cancelAll(FILTER_ID, true);
+                queryCategories(newText);
+                return false;
+            }
+        });
+    }
+
+    @Background(delay = 700, id = FILTER_ID)
+    public void queryCategories(String filter) {
+        loadCategories(filter);
+    }
+
+    private void loadCategories(final String filter){
         getLoaderManager().restartLoader(1, null, new LoaderManager.LoaderCallbacks<List<Categories>>() {
             @Override
             public Loader<List<Categories>> onCreateLoader(int id, Bundle args) {
                 final AsyncTaskLoader<List<Categories>> loader = new AsyncTaskLoader<List<Categories>>(getActivity()) {
                     @Override
                     public List<Categories> loadInBackground() {
-                        return Categories.getAllCategories();
+                        return Categories.getAllCategories(filter);
                     }
                 };
                 loader.forceLoad();

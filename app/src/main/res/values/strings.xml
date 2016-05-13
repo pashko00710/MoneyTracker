@@ -37,4 +37,7 @@
         <item>Tel</item>
         <item>Car</item>
     </string-array>
+
+    <!-- TODO: Values for Search -->
+    <string name="search_title">Search</string>
 </resources>

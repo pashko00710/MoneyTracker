@@ -51,4 +51,10 @@ public class Categories extends BaseModel {
                 .from(Categories.class)
                 .queryList();
     }
+    public static List<Categories> getAllCategories(String filter) {
+        return SQLite.select()
+                .from(Categories.class)
+                .where(Categories_Table.name.like("%"+filter+"%"))
+                .queryList();
+    }
 }
