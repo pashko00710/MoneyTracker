@@ -35,4 +35,6 @@ dependencies {
     apt "com.github.Raizlabs.DBFlow:dbflow-processor:+"
     compile "com.github.Raizlabs.DBFlow:dbflow-core:+"
     compile "com.github.Raizlabs.DBFlow:dbflow:+"
+    compile "com.squareup.retrofit:retrofit:1.9.0"
+    compile "com.squareup.okhttp:okhttp:2.2.0"
 }
