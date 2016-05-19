@@ -11,7 +11,6 @@ public class RestClient {
     private static final String BASE_URL = "http://lmt.loftblog.tmweb.ru/";
 
     private RegisterUserApi registerUserApi;
-    //...
 
     public RestClient() {
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -20,7 +19,6 @@ public class RestClient {
                 .build();
 
         registerUserApi = restAdapter.create(RegisterUserApi.class);
-        //...
     }
 
     public RegisterUserApi getRegisterUserApi() {

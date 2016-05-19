@@ -10,7 +10,6 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
@@ -19,8 +18,6 @@ import com.example.moneytracker.R;
 import com.example.moneytracker.adapter.MyAdapter;
 import com.example.moneytracker.database.model.Categories;
 import com.example.moneytracker.database.model.Expenses;
-import com.example.moneytracker.rest.RestService;
-import com.example.moneytracker.rest.model.UserRegistrationModel;
 import com.example.moneytracker.ui.activity.DetailsExpenseActivity_;
 import com.example.moneytracker.util.NetworkStatusChecker;
 
@@ -97,15 +94,11 @@ public class ExpenseFragment extends Fragment {
 
     @Background
        public void registerUser() {
-        if(NetworkStatusChecker.isNetworkAvailable(getActivity())) {
-            RestService restService = new RestService();
-            UserRegistrationModel userRegistrationModel = restService.register("pashko00710", "111");
-            Log.d(LOG_TAG, "status: " + userRegistrationModel.getStatus() + ", id: " + userRegistrationModel.getId());
-        } else {
+        if(!NetworkStatusChecker.isNetworkAvailable(getActivity())) {
             Snackbar snackbar = Snackbar.make(rootLayout, "Internet is not defined", Snackbar.LENGTH_LONG);
             snackbar.show();
         }
-            }
+    }
 
     @Background(delay = 700, id = FILTER_ID)
     public void queryExpenses(String filter) {
