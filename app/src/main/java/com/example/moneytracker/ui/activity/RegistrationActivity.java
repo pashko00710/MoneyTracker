@@ -99,7 +99,7 @@ public class RegistrationActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void loadLogin( ) {
+    public void loadLogin() {
         Log.d("Here", String.valueOf(sp.contains(MY_ID)));
         if(sp.contains(MY_ID)) {
             MainActivity_.intent(this).start();
