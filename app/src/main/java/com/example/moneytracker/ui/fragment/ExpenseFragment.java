@@ -137,5 +137,13 @@ public class ExpenseFragment extends Fragment {
         category.insert();
         category.setName("Transport");
         category.insert();
+        category.setName("Cloth");
+        category.insert();
+        category.setName("Products");
+        category.insert();
+        category.setName("Other");
+        category.insert();
+        category.setName("Communication");
+        category.insert();
     }
 }

@@ -10,6 +10,7 @@ import org.androidannotations.annotations.EActivity;
 
 @EActivity(R.layout.activity_splash)
 public class SplashActivity extends AppCompatActivity {
+
     @AfterViews
     void ready() {
         doInBackground();
@@ -23,6 +24,5 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
     }
 }
