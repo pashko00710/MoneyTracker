@@ -3,6 +3,7 @@ package com.example.moneytracker.ui.fragment;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -18,6 +19,7 @@ import com.example.moneytracker.adapter.MyAdapter;
 import com.example.moneytracker.database.model.Categories;
 import com.example.moneytracker.database.model.Expenses;
 import com.example.moneytracker.ui.activity.DetailsExpenseActivity_;
+import com.example.moneytracker.util.NetworkStatusChecker;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -46,6 +48,8 @@ public class ExpenseFragment extends Fragment {
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItem;
 
+    private static final String LOG_TAG = "myLogs";
+
     private static final String FILTER_ID = "filter_id";
 
     @Click(R.id.expense_fabBtn)
@@ -59,6 +63,7 @@ public class ExpenseFragment extends Fragment {
         if(Categories.getAllCategories().isEmpty()) {
             insertCategories();
         }
+        registerUser();
     }
 
     @Override
@@ -85,6 +90,14 @@ public class ExpenseFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    @Background
+       public void registerUser() {
+        if(!NetworkStatusChecker.isNetworkAvailable(getActivity())) {
+            Snackbar snackbar = Snackbar.make(rootLayout, "Internet is not defined", Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
     }
 
     @Background(delay = 700, id = FILTER_ID)
@@ -123,6 +136,14 @@ public class ExpenseFragment extends Fragment {
         category.setName("Cinema");
         category.insert();
         category.setName("Transport");
+        category.insert();
+        category.setName("Cloth");
+        category.insert();
+        category.setName("Products");
+        category.insert();
+        category.setName("Other");
+        category.insert();
+        category.setName("Communication");
         category.insert();
     }
 }

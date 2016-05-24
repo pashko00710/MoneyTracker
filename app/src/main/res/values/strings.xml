@@ -40,4 +40,14 @@
 
     <!-- TODO: Values for Search -->
     <string name="search_title">Search</string>
+
+    <!-- TODO: Values for Registration -->
+    <string name="registration_min_symbols_login">Minimum 5 symbol in username</string>
+    <string name="registration_min_symbols_password">Minimum 5 symbol in password</string>
+    <string name="registration_username">UserName</string>
+    <string name="registration_password">Password</string>
+    <string name="registration_btn_login">LOGIN</string>
+    <string name="registration_btn_registration">Registration</string>
+    <string name="registration_busyalready">Busy Already</string>
+    <string name="registration_error">Error</string>
 </resources>
