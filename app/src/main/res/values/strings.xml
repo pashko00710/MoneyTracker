@@ -52,5 +52,6 @@
     <string name="registration_error">Error</string>
     <string name="password_wrong">Wrong Password</string>
     <string name="login_wrong">Wrong Login</string>
+    <string name="internet_not_connected">Internet is not connected</string>
 
 </resources>

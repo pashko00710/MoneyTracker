@@ -31,27 +31,10 @@ import java.io.IOException;
 @EActivity(R.layout.activity_login)
 public class LoginActivity extends AppCompatActivity {
 
-//    private static final String MY_REGISTRATION = "myRegistration";
-//    private static final String MY_ID = "myId";
-//    public static SharedPreferences sp;
     @ViewById(R.id.login_username)
     EditText userName;
     @ViewById(R.id.login_password)
     EditText userPassword;
-
-//    @AfterViews
-//    public void ready() {
-////        sp = getSharedPreferences(MY_REGISTRATION,
-////                Context.MODE_PRIVATE);
-////        loadLogin();
-//    }
-
-//    private void loadLogin() {
-//        Log.d("Here", String.valueOf(sp.contains(MY_ID)));
-//        if(sp.contains(MY_ID)) {
-//            MainActivity_.intent(this).start();
-//        }
-//    }
 
     public static final String LOG_TAG = LoginActivity.class.getSimpleName();
 
@@ -144,5 +127,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         DataBaseApp.setGoogleToken(this, token);
+        Log.e("LOG_TAG_TOKEN", " GOOGLE_TOKEN + " + DataBaseApp.getGoogleToken(this));
+
+        if (!DataBaseApp.getGoogleToken(this).equalsIgnoreCase("")) {
+                        Intent regIntent = new Intent(LoginActivity.this, MainActivity_.class);
+                        startActivity(regIntent);
+                        finish();
+        }
     }
 }

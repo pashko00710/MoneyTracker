@@ -11,16 +11,25 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.moneytracker.R;
+import com.example.moneytracker.rest.RestService;
+import com.example.moneytracker.rest.model.GoogleModel;
 import com.example.moneytracker.ui.fragment.CategoriesFragment_;
 import com.example.moneytracker.ui.fragment.ExpenseFragment_;
 import com.example.moneytracker.ui.fragment.SettingsFragment_;
 import com.example.moneytracker.ui.fragment.StatisticsFragment_;
+import com.example.moneytracker.util.DataBaseApp;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+
+//import de.hdodenhof.circleimageview.CircleImageView;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,17 +40,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @ViewById(R.id.navigation_view)
     NavigationView navigationView;
+    @ViewById(R.id.profile_image)
+    ImageView imageView;
+    @ViewById(R.id.username_drawer_header)
+    TextView userName;
+    @ViewById(R.id.email_drawer_header)
+    TextView userEmail;
 
     @AfterViews
     public void ready() {
-//                if(savedInstanceState == null) {
-//            replaceFragment(new ExpenseFragment());
-//        }
         setTitle("ExpenseFragment");
         replaceFragment(new ExpenseFragment_());
         setupActionBar();
         setupDrawerLayout();
         backStack();
+        setHeaderDrawerInfo();
     }
 
     private void backStack() {
@@ -64,19 +77,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (fragClassName.equals(ExpenseFragment_.class.getName())) {
             setTitle("ExpenseFragment");
             navigationView.setCheckedItem(R.id.drawer_expenses);
-            //set selected item position, etc
         } else if (fragClassName.equals(CategoriesFragment_.class.getName())) {
             setTitle("CategoriesFragment");
             navigationView.setCheckedItem(R.id.drawer_categories);
-            //set selected item position, etc
         } else if (fragClassName.equals(StatisticsFragment_.class.getName())) {
             setTitle("StatisticsFragment");
             navigationView.setCheckedItem(R.id.drawer_statistics);
-            //set selected item position, etc
         } else if (fragClassName.equals(SettingsFragment_.class.getName())) {
             setTitle("SettingsFragment");
             navigationView.setCheckedItem(R.id.drawer_settings);
-            //set selected item position, etc
         }
     }
 
@@ -109,6 +118,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Background
+    public void setHeaderDrawerInfo() {
+        if(!DataBaseApp.getGoogleToken(this).equalsIgnoreCase("")) {
+            RestService restService = new RestService();
+            GoogleModel googleModel = restService.getJsonModel(this);
+
+            String name = googleModel.getName();
+            String email = googleModel.getEmail();
+            String pictureUrl = googleModel.getPicture();
+
+            setInfo(name, email);
+
+//            Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
+//                @Override
+//                protected void setResource(Bitmap resource) {
+//                    RoundedBitmapDrawable circularBitmapDrawable =
+//                            RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                    circularBitmapDrawable.setCircular(true);
+//                    imageView.setImageDrawable(circularBitmapDrawable);
+//                }
+//            });
+        }
+    }
+
+    @UiThread
+    public void setInfo(String name, String email) {
+        userName.setText(name);
+        userEmail.setText(email);
     }
 
     @Override
@@ -147,8 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 replaceFragment(new SettingsFragment_());
                 break;
             default:
-//                setTitle("ExpenseFragment");
-//                replaceFragment(new ExpenseFragment_());
                 break;
         }
         return true;

@@ -1,18 +1,17 @@
 package com.example.moneytracker.rest;
 
+import com.example.moneytracker.rest.api.GoogleTokenApi;
 import com.example.moneytracker.rest.api.LoginUserApi;
 import com.example.moneytracker.rest.api.RegisterUserApi;
 
 import retrofit.RestAdapter;
 
-/**
- * Created by Павел on 18.05.2016.
- */
 public class RestClient {
     private static final String BASE_URL = "http://lmt.loftblog.tmweb.ru/";
 
     private RegisterUserApi registerUserApi;
     private LoginUserApi loginUserApi;
+    private GoogleTokenApi googleTokenApi;
 
     public RestClient() {
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -21,6 +20,8 @@ public class RestClient {
                 .build();
 
         registerUserApi = restAdapter.create(RegisterUserApi.class);
+        loginUserApi = restAdapter.create(LoginUserApi.class);
+        googleTokenApi = restAdapter.create(GoogleTokenApi.class);
     }
 
     public RegisterUserApi getRegisterUserApi() {
@@ -29,5 +30,9 @@ public class RestClient {
 
     public LoginUserApi getLoginUserApi() {
         return loginUserApi;
+    }
+
+    public GoogleTokenApi getGoogleTokenApi() {
+        return  googleTokenApi;
     }
 }
