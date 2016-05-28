@@ -1,5 +1,6 @@
 package com.example.moneytracker.rest;
 
+import com.example.moneytracker.rest.model.UserLoginModel;
 import com.example.moneytracker.rest.model.UserRegistrationModel;
 
 /**
@@ -16,6 +17,10 @@ public class RestService {
 
     public UserRegistrationModel register(String login, String password) {
         return restClient.getRegisterUserApi().registerUser(login, password, REGISTER_FLAG);
+    }
+
+    public UserLoginModel login(String login, String password){
+        return restClient.getLoginUserApi().loginUser(login, password);
     }
 
 }

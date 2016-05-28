@@ -1,5 +1,6 @@
 package com.example.moneytracker.rest;
 
+import com.example.moneytracker.rest.api.LoginUserApi;
 import com.example.moneytracker.rest.api.RegisterUserApi;
 
 import retrofit.RestAdapter;
@@ -11,6 +12,7 @@ public class RestClient {
     private static final String BASE_URL = "http://lmt.loftblog.tmweb.ru/";
 
     private RegisterUserApi registerUserApi;
+    private LoginUserApi loginUserApi;
 
     public RestClient() {
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -23,5 +25,9 @@ public class RestClient {
 
     public RegisterUserApi getRegisterUserApi() {
         return registerUserApi;
+    }
+
+    public LoginUserApi getLoginUserApi() {
+        return loginUserApi;
     }
 }
