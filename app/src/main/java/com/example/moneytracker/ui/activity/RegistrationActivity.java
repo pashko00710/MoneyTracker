@@ -26,11 +26,6 @@ import org.androidannotations.annotations.ViewById;
 @EActivity(R.layout.activity_registration)
 public class RegistrationActivity extends AppCompatActivity {
 
-//    private static final String MY_REGISTRATION = "myRegistration";
-//    private static final String MY_ID = "myId";
-//
-//    public static SharedPreferences sp;
-
     @ViewById(R.id.registration_username)
     EditText userName;
     @ViewById(R.id.registration_password)
@@ -41,8 +36,6 @@ public class RegistrationActivity extends AppCompatActivity {
     @AfterViews
     public void ready() {
         setTitle("Authorization");
-//        sp = getSharedPreferences(MY_REGISTRATION,
-//                Context.MODE_PRIVATE);
     }
 
     @Click(R.id.btnRegistration)
@@ -94,11 +87,4 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
     }
-
-//    public void saveLogin(UserRegistrationModel user) {
-//        SharedPreferences.Editor editor = sp.edit();
-//        editor.putString(MY_ID, String.valueOf(user.getId()));
-//        editor.apply();
-//    }
-
 }

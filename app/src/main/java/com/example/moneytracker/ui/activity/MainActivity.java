@@ -1,19 +1,26 @@
 package com.example.moneytracker.ui.activity;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.moneytracker.R;
 import com.example.moneytracker.rest.RestService;
 import com.example.moneytracker.rest.model.GoogleModel;
@@ -29,8 +36,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-//import de.hdodenhof.circleimageview.CircleImageView;
-
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,12 +45,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @ViewById(R.id.navigation_view)
     NavigationView navigationView;
-    @ViewById(R.id.profile_image)
-    ImageView imageView;
-    @ViewById(R.id.username_drawer_header)
-    TextView userName;
-    @ViewById(R.id.email_drawer_header)
-    TextView userEmail;
+//    @ViewById(R.id.profile_image)
+//    ImageView imageView;
+
+    public String name,email,pictureUrl;
+    Context context = this;
 
     @AfterViews
     public void ready() {
@@ -122,32 +126,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Background
     public void setHeaderDrawerInfo() {
-        if(!DataBaseApp.getGoogleToken(this).equalsIgnoreCase("")) {
+        if(!DataBaseApp.getGoogleToken(this).equalsIgnoreCase("2")) {
             RestService restService = new RestService();
             GoogleModel googleModel = restService.getJsonModel(this);
 
-            String name = googleModel.getName();
-            String email = googleModel.getEmail();
-            String pictureUrl = googleModel.getPicture();
+            name = googleModel.getName();
+            email = googleModel.getEmail();
+            pictureUrl = googleModel.getPicture();
+            Log.d("GoogleModel", name);
 
-            setInfo(name, email);
-
-//            Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
-//                @Override
-//                protected void setResource(Bitmap resource) {
-//                    RoundedBitmapDrawable circularBitmapDrawable =
-//                            RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-//                    circularBitmapDrawable.setCircular(true);
-//                    imageView.setImageDrawable(circularBitmapDrawable);
-//                }
-//            });
+            setInfo();
+            setPicture();
         }
     }
 
     @UiThread
-    public void setInfo(String name, String email) {
+    public void setInfo() {
+        TextView userName = (TextView)findViewById(R.id.username_drawer_header);
+        TextView userEmail = (TextView)findViewById(R.id.email_drawer_header);
         userName.setText(name);
         userEmail.setText(email);
+    }
+
+    @UiThread
+    public void setPicture() {
+        final ImageView imageView = (ImageView)findViewById(R.id.profile_image);
+        Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable =
+                            RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+                    imageView.setImageDrawable(circularBitmapDrawable);
+                }
+            });
     }
 
     @Override

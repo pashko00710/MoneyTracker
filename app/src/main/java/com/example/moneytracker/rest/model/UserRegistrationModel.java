@@ -2,9 +2,6 @@ package com.example.moneytracker.rest.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Павел on 18.05.2016.
- */
 public class UserRegistrationModel {
     @SerializedName("status")
     private String status;

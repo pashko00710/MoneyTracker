@@ -16,8 +16,7 @@
             android:id="@+id/profile_image"
             android:layout_marginStart="@dimen/profile_margin"
             android:layout_marginLeft="@dimen/profile_margin"
-            android:layout_marginTop="@dimen/profile_margin"
-            android:src="@drawable/me"/>
+            android:layout_marginTop="@dimen/profile_margin" />
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

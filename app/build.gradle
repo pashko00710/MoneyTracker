@@ -18,6 +18,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        instantrunconfig {
+            minSdkVersion 21
+            targetSdkVersion 23
+            versionCode 1
+            versionName "1.0"
+            multiDexEnabled true
+        }
+    }
 }
 
 dependencies {
@@ -38,4 +47,5 @@ dependencies {
     compile "com.squareup.retrofit:retrofit:1.9.0"
     compile "com.squareup.okhttp:okhttp:2.2.0"
     compile 'com.google.android.gms:play-services:8.3.0'
+    compile 'com.android.support:multidex:1.0.1'
 }

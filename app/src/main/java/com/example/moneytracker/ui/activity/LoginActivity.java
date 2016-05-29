@@ -21,6 +21,7 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -37,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
     EditText userPassword;
 
     public static final String LOG_TAG = LoginActivity.class.getSimpleName();
+
+    @AfterViews
+    public void ready() {
+        setTitle("Login");
+    }
 
     @Click(R.id.btnLinkToRegister)
     public void registerButton() {
@@ -129,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         DataBaseApp.setGoogleToken(this, token);
         Log.e("LOG_TAG_TOKEN", " GOOGLE_TOKEN + " + DataBaseApp.getGoogleToken(this));
 
-        if (!DataBaseApp.getGoogleToken(this).equalsIgnoreCase("")) {
+        if (!DataBaseApp.getGoogleToken(this).equalsIgnoreCase("2")) {
                         Intent regIntent = new Intent(LoginActivity.this, MainActivity_.class);
                         startActivity(regIntent);
                         finish();

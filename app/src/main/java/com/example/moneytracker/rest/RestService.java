@@ -1,6 +1,7 @@
 package com.example.moneytracker.rest;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.moneytracker.rest.model.GoogleModel;
 import com.example.moneytracker.rest.model.UserLoginModel;
@@ -25,6 +26,7 @@ public class RestService {
     }
 
     public GoogleModel getJsonModel(Context context) {
+        Log.d("getJson", String.valueOf(DataBaseApp.getGoogleToken(context)));
         return restClient.getGoogleTokenApi().googleJsonToken(DataBaseApp.getGoogleToken(context));
     }
 
