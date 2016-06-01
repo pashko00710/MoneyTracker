@@ -23,8 +23,13 @@ public class SplashActivity extends AppCompatActivity {
     void doInBackground() {
         if (NetworkStatusChecker.isNetworkAvailable(this)) {
             gToken = DataBaseApp.getGoogleToken(this);
+            if(!gToken.equalsIgnoreCase("2") ) {
+                MainActivity_.intent(this).start();
+            } else {
+                LoginActivity_.intent(this).start();
+            }
         }
-        if (!gToken.equalsIgnoreCase("2") || !DataBaseApp.getAuthKey().equals("") ) {
+        if (!DataBaseApp.getAuthKey().equals("")) {
             MainActivity_.intent(this).start();
         } else {
             LoginActivity_.intent(this).start();

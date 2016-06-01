@@ -47,6 +47,7 @@
     <string name="registration_username">UserName</string>
     <string name="registration_password">Password</string>
     <string name="registration_btn_login">LOGIN</string>
+    <string name="login_title">Login</string>
     <string name="registration_btn_registration">Registration</string>
     <string name="registration_busyalready">Busy Already</string>
     <string name="registration_error">Error</string>

@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @AfterViews
     public void ready() {
-        setTitle("Login");
+        setTitle(R.string.login_title);
     }
 
     @Click(R.id.btnLinkToRegister)
@@ -50,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Click(R.id.google_login_btn)
-    public void googleButton() {
+    public void googleButton(View loginView) {
+        internetIsNotDefinened(loginView);
         Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[]{"com.google"},
                 false, null, null, null, null);
         startActivityForResult(intent, 15);
@@ -65,11 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-        if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
-            Snackbar snackbar = Snackbar.make(loginView, "Internet is not defined", Snackbar.LENGTH_LONG);
-            snackbar.show();
-            return;
-        }
+        internetIsNotDefinened(loginView);
 
         if(userName.length() < 5) {
             Snackbar.make(loginView, getString(R.string.registration_min_symbols_login), Snackbar.LENGTH_LONG).show();
@@ -139,6 +136,14 @@ public class LoginActivity extends AppCompatActivity {
                         Intent regIntent = new Intent(LoginActivity.this, MainActivity_.class);
                         startActivity(regIntent);
                         finish();
+        }
+    }
+
+    private void internetIsNotDefinened(View v) {
+        if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
+            Snackbar snackbar = Snackbar.make(v, "Internet is not defined", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return;
         }
     }
 }

@@ -16,7 +16,8 @@
             android:id="@+id/profile_image"
             android:layout_marginStart="@dimen/profile_margin"
             android:layout_marginLeft="@dimen/profile_margin"
-            android:layout_marginTop="@dimen/profile_margin" />
+            android:layout_marginTop="@dimen/profile_margin"
+            android:src="@drawable/user_default_pic"/>
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,6 +34,7 @@
             android:gravity="bottom"
             android:textSize="@dimen/nameTextSize"
             android:textColor="@color/colorWhite"
+            android:text="Unknown user"
             android:fontFamily="sans-serif-medium">
         </TextView>
         <TextView
@@ -43,6 +45,7 @@
             android:layout_marginBottom="@dimen/margin_bottom_useremail"
             android:gravity="bottom"
             android:textSize="@dimen/nameTextSize"
+            android:text="default@gmail.com"
             android:textColor="@color/colorWhite"
             android:fontFamily="sans-serif">
         </TextView>
