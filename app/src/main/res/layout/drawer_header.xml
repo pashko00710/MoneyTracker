@@ -10,14 +10,14 @@
 
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
             android:layout_height="@dimen/header_imeageavatarsize"
             android:layout_width="@dimen/header_imeageavatarsize"
             android:id="@+id/profile_image"
             android:layout_marginStart="@dimen/profile_margin"
             android:layout_marginLeft="@dimen/profile_margin"
             android:layout_marginTop="@dimen/profile_margin"
-            android:src="@drawable/me"/>
+            android:src="@drawable/user_default_pic"/>
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,20 +30,22 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/profile_margin"
             android:layout_marginBottom="@dimen/margin_bottom_username"
-            android:text="@string/user_name"
+            android:id="@+id/username_drawer_header"
             android:gravity="bottom"
             android:textSize="@dimen/nameTextSize"
             android:textColor="@color/colorWhite"
+            android:text="Unknown user"
             android:fontFamily="sans-serif-medium">
         </TextView>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/profile_margin"
+            android:id="@+id/email_drawer_header"
             android:layout_marginBottom="@dimen/margin_bottom_useremail"
-            android:text="@string/user_email"
             android:gravity="bottom"
             android:textSize="@dimen/nameTextSize"
+            android:text="default@gmail.com"
             android:textColor="@color/colorWhite"
             android:fontFamily="sans-serif">
         </TextView>

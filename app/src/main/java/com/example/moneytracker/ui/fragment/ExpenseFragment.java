@@ -48,8 +48,6 @@ public class ExpenseFragment extends Fragment {
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItem;
 
-    private static final String LOG_TAG = "myLogs";
-
     private static final String FILTER_ID = "filter_id";
 
     @Click(R.id.expense_fabBtn)

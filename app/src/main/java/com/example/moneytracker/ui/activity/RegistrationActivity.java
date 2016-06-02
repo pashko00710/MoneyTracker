@@ -1,7 +1,6 @@
 package com.example.moneytracker.ui.activity;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,7 +11,10 @@ import android.widget.EditText;
 
 import com.example.moneytracker.R;
 import com.example.moneytracker.rest.RestService;
+import com.example.moneytracker.rest.model.UserLoginModel;
 import com.example.moneytracker.rest.model.UserRegistrationModel;
+import com.example.moneytracker.util.ConstantManager;
+import com.example.moneytracker.util.DataBaseApp;
 import com.example.moneytracker.util.NetworkStatusChecker;
 
 import org.androidannotations.annotations.AfterViews;
@@ -24,11 +26,6 @@ import org.androidannotations.annotations.ViewById;
 @EActivity(R.layout.activity_registration)
 public class RegistrationActivity extends AppCompatActivity {
 
-    private static final String MY_REGISTRATION = "myRegistration";
-    private static final String MY_ID = "myId";
-
-    public static SharedPreferences sp;
-
     @ViewById(R.id.registration_username)
     EditText userName;
     @ViewById(R.id.registration_password)
@@ -39,13 +36,10 @@ public class RegistrationActivity extends AppCompatActivity {
     @AfterViews
     public void ready() {
         setTitle("Authorization");
-        sp = getSharedPreferences(MY_REGISTRATION,
-                Context.MODE_PRIVATE);
-        loadLogin();
     }
 
-    @Click(R.id.btnLogin)
-    public void login(View loginView) {
+    @Click(R.id.btnRegistration)
+    public void registration(View loginView) {
         View view = this.getCurrentFocus();
 
         if (view != null) {
@@ -78,12 +72,13 @@ public class RegistrationActivity extends AppCompatActivity {
         UserRegistrationModel userRegistrationModel = restService.register(login, password);
 
         switch (userRegistrationModel.getStatus()) {
-            case NetworkStatusChecker.STATUS_LOGIN_ALREADY :
+            case ConstantManager.STATUS_LOGIN_ALREADY :
                 Snackbar.make(regView, getString(R.string.registration_busyalready), Snackbar.LENGTH_LONG).show();
                 break;
-            case NetworkStatusChecker.STATUS_SUCCESS :
+            case ConstantManager.STATUS_SUCCESS :
                 Log.d("RegLogs", "status: " + userRegistrationModel.getStatus() + ", id: " + userRegistrationModel.getId());
-                saveLogin(userRegistrationModel);
+                UserLoginModel userLoginModel = restService.login(login, password);
+                DataBaseApp.setAuthToken(userLoginModel.getAuthToken());
                 MainActivity_.intent(this).start();
                 return;
             default :
@@ -91,18 +86,5 @@ public class RegistrationActivity extends AppCompatActivity {
                 break;
         }
 
-    }
-
-    public void saveLogin(UserRegistrationModel user) {
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(MY_ID, String.valueOf(user.getId()));
-        editor.apply();
-    }
-
-    public void loadLogin() {
-        Log.d("Here", String.valueOf(sp.contains(MY_ID)));
-        if(sp.contains(MY_ID)) {
-            MainActivity_.intent(this).start();
-        }
     }
 }

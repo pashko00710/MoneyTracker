@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:id="@+id/expense_fragment_coordinatorlayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.ExpenseFragment_">
+    tools:context=".ui.fragment.ExpenseFragment_"
+    android:layout_gravity="end|bottom">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView
@@ -18,14 +19,14 @@
         android:id="@+id/expense_fabBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_fab_margintop"
         android:layout_marginBottom="@dimen/codelab_fab_margin_bottom"
         android:layout_marginRight="@dimen/codelab_fab_margin_right"
-        android:src="@drawable/ic_plus_white_24dp"
+        android:layout_marginEnd="16dp"
         android:layout_gravity="bottom|end"
-        app:layout_anchor="@+id/fragment_expense_waste"
-        app:layout_anchorGravity="bottom|right|end"
-        app:layout_behavior="com.example.moneytracker.util.ScrollAwareFABBehavior"
-        app:fabSize="normal" />
+        android:src="@drawable/ic_plus_white_24dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/fragment_expense_waste"
+        app:layout_anchorGravity="bottom|end"
+        app:layout_behavior="com.example.moneytracker.util.ScrollAwareFABBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

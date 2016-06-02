@@ -9,9 +9,6 @@ import android.net.NetworkInfo;
  */
 public class NetworkStatusChecker {
 
-    public static final String STATUS_SUCCESS = "success";
-    public static final String STATUS_LOGIN_ALREADY = "Login busy already";
-
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);

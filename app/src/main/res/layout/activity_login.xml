@@ -5,6 +5,7 @@
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
+    android:id="@+id/login_linear_layout"
     android:padding="10dp" >
 
     <LinearLayout
@@ -16,7 +17,7 @@
         android:paddingRight="20dp" >
 
         <EditText
-            android:id="@+id/registration_username"
+            android:id="@+id/login_username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -26,7 +27,7 @@
             android:singleLine="true" />
 
         <EditText
-            android:id="@+id/registration_password"
+            android:id="@+id/login_password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -39,14 +40,37 @@
         <!-- Login Button -->
 
         <Button
-            android:id="@+id/btnRegistration"
+            android:id="@+id/btnLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/registration_btn_registration"
+            android:layout_marginTop="15dp"
+            android:text="@string/registration_btn_login"
             android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/btnLinkToRegister"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="@string/registration_btn_registration"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="80dp"
+            android:textSize="15dp" />
+
+        <com.google.android.gms.common.SignInButton
+            android:layout_gravity="center|bottom"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/google_login_btn">
+        </com.google.android.gms.common.SignInButton>
 
 
     </LinearLayout>
 
 </LinearLayout>
+
+
+
