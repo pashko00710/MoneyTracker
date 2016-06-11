@@ -3,6 +3,7 @@ package com.example.moneytracker.ui.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,11 +24,13 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.moneytracker.R;
 import com.example.moneytracker.rest.RestService;
 import com.example.moneytracker.rest.model.GoogleModel;
+import com.example.moneytracker.rest.model.UserLogoutModel;
 import com.example.moneytracker.sync.TrackerSyncAdapter;
 import com.example.moneytracker.ui.fragment.CategoriesFragment_;
 import com.example.moneytracker.ui.fragment.ExpenseFragment_;
 import com.example.moneytracker.ui.fragment.SettingsFragment_;
 import com.example.moneytracker.ui.fragment.StatisticsFragment_;
+import com.example.moneytracker.util.ConstantManager;
 import com.example.moneytracker.util.DataBaseApp;
 
 import org.androidannotations.annotations.AfterViews;
@@ -198,10 +201,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setTitle("SettingsFragment");
                 replaceFragment(new SettingsFragment_());
                 break;
+            case R.id.drawer_exit:
+                logoutUser();
             default:
                 break;
         }
         return true;
+    }
+
+    @Background
+    public void logoutUser() {
+        RestService restService = new RestService();
+        UserLogoutModel userLogoutModel = restService.logout();
+
+        switch (userLogoutModel.getStatus()) {
+            case ConstantManager.STATUS_SUCCESS:
+                LoginActivity_.intent(this).start();
+                return;
+            case "Error" :
+                Snackbar.make(drawerLayout, R.string.detailsexpense_error_note, Snackbar.LENGTH_SHORT).show();
+                break;
+            case "unauthorized" :
+                LoginActivity_.intent(this).start();
+                return;
+            case "" :
+                DataBaseApp.setAuthToken("");
+                LoginActivity_.intent(this).start();
+                return;
+        }
     }
 
 }

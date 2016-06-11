@@ -9,5 +9,16 @@
             android:icon="@drawable/ic_equalizer_black_24dp"/>
         <item android:id="@+id/drawer_settings" android:title="@string/nav_drawer_settings"
             android:icon="@drawable/ic_settings_black_24dp"/>
+
+        <item
+            android:id="@+id/navigation_exit"
+            android:title="Выход">
+            <menu>
+                <item
+                    android:id="@+id/drawer_exit"
+                    android:icon="@drawable/ic_exit_to_app_black_24dp"
+                    android:title="@string/nav_drawer_exit" />
+            </menu>
+        </item>
     </group>
 </menu>

@@ -9,6 +9,7 @@
     <string name="nav_drawer_settings">Настройки</string>
     <string name="user_name">Pavel Arkhipov</string>
     <string name="user_email">pashko00710@gmail.com</string>
+    <string name="nav_drawer_exit">Выход</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="expenses_fragment_waste">Hello blank fragment expense</string>
