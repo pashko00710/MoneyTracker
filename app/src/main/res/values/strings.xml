@@ -3,13 +3,13 @@
     <string name="app_name">MoneyTracker</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-    <string name="nav_drawer_expenses">Траты</string>
-    <string name="nav_drawer_categories">Категории</string>
-    <string name="nav_drawer_statistics">Статистика</string>
-    <string name="nav_drawer_settings">Настройки</string>
+    <string name="nav_drawer_expenses">Expenses</string>
+    <string name="nav_drawer_categories">Categories</string>
+    <string name="nav_drawer_statistics">Statistics</string>
+    <string name="nav_drawer_settings">Settings</string>
     <string name="user_name">Pavel Arkhipov</string>
     <string name="user_email">pashko00710@gmail.com</string>
-    <string name="nav_drawer_exit">Выход</string>
+    <string name="nav_drawer_exit">Exit</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="expenses_fragment_waste">Hello blank fragment expense</string>

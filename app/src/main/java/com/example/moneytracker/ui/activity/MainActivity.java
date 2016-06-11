@@ -32,6 +32,7 @@ import com.example.moneytracker.ui.fragment.SettingsFragment_;
 import com.example.moneytracker.ui.fragment.StatisticsFragment_;
 import com.example.moneytracker.util.ConstantManager;
 import com.example.moneytracker.util.DataBaseApp;
+import com.example.moneytracker.util.NetworkStatusChecker;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -48,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @ViewById(R.id.navigation_view)
     NavigationView navigationView;
-//    @ViewById(R.id.profile_image)
-//    ImageView imageView;
 
     public String name,email,pictureUrl;
     Context context = this;
@@ -211,6 +210,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Background
     public void logoutUser() {
+        if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
+            Snackbar snackbar = Snackbar.make(drawerLayout, "Internet is not defined", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return;
+        }
         RestService restService = new RestService();
         UserLogoutModel userLogoutModel = restService.logout();
 
@@ -221,10 +225,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case "Error" :
                 Snackbar.make(drawerLayout, R.string.detailsexpense_error_note, Snackbar.LENGTH_SHORT).show();
                 break;
-            case "unauthorized" :
+            case ConstantManager.STATUS_UNAUTHORIZED :
                 LoginActivity_.intent(this).start();
                 return;
-            case "" :
+            case ConstantManager.STATUS_EMPTY :
                 DataBaseApp.setAuthToken("");
                 LoginActivity_.intent(this).start();
                 return;

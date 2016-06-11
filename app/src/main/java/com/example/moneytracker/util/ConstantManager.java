@@ -3,6 +3,8 @@ package com.example.moneytracker.util;
 
 final public class ConstantManager {
 
+    public static final String STATUS_EMPTY = "";
+    public static final String STATUS_UNAUTHORIZED = "unauthorized";
     public static final String STATUS_SUCCESS = "success";
     public static final String STATUS_LOGIN_ALREADY = "Login busy already";
 

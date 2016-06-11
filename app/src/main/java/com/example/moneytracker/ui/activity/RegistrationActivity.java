@@ -33,6 +33,9 @@ public class RegistrationActivity extends AppCompatActivity {
     @ViewById(R.id.btnLogin)
     Button loginBtn;
 
+    public static String login;
+    public static String password;
+
     @AfterViews
     public void ready() {
         setTitle("Authorization");
@@ -65,8 +68,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @Background
     public void registerUser(View regView) {
-        String login = userName.getText().toString();
-        String password = userPassword.getText().toString();
+        login = userName.getText().toString();
+        password = userPassword.getText().toString();
 
         RestService restService = new RestService();
         UserRegistrationModel userRegistrationModel = restService.register(login, password);
