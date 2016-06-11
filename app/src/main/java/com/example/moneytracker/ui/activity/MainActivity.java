@@ -14,7 +14,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +23,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.moneytracker.R;
 import com.example.moneytracker.rest.RestService;
 import com.example.moneytracker.rest.model.GoogleModel;
+import com.example.moneytracker.sync.TrackerSyncAdapter;
 import com.example.moneytracker.ui.fragment.CategoriesFragment_;
 import com.example.moneytracker.ui.fragment.ExpenseFragment_;
 import com.example.moneytracker.ui.fragment.SettingsFragment_;
@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupDrawerLayout();
         backStack();
         setHeaderDrawerInfo();
+
+        TrackerSyncAdapter.initializeSyncAdapter(this);
     }
 
     private void backStack() {
@@ -133,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             name = googleModel.getName();
             email = googleModel.getEmail();
             pictureUrl = googleModel.getPicture();
-            Log.d("GoogleModel", name);
 
             setInfo();
             setPicture();

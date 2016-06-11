@@ -55,4 +55,7 @@
     <string name="login_wrong">Wrong Login</string>
     <string name="internet_not_connected">Internet is not connected</string>
 
+
+    <string name="content_authority">com.example.moneytracker</string>
+    <string name="sync_account_type">moneytracker.example.com</string>
 </resources>
