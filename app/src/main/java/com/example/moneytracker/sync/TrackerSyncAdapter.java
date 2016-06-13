@@ -25,6 +25,9 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         Log.e(TAG, "Sync");
+
+        CategoriesSync.syncCategories(getContext());
+        ExpensesSync.synceExpenses(getContext());
     }
 
     public static void syncImmediately(Context context){

@@ -6,6 +6,8 @@ import com.example.moneytracker.rest.model.GoogleModel;
 import com.example.moneytracker.rest.model.UserLoginModel;
 import com.example.moneytracker.rest.model.UserLogoutModel;
 import com.example.moneytracker.rest.model.UserRegistrationModel;
+import com.example.moneytracker.rest.model.UserSyncCategoriesModel;
+import com.example.moneytracker.rest.model.UserSyncExpensesModel;
 import com.example.moneytracker.util.DataBaseApp;
 
 public class RestService {
@@ -31,6 +33,14 @@ public class RestService {
 
     public UserLogoutModel logout() {
         return restClient.getLogoutUserApi().logoutUser();
+    }
+
+    public UserSyncCategoriesModel syncCategories(Context context, String data) {
+        return restClient.getSyncUserApi().syncCategory(DataBaseApp.getGoogleToken(context), data, DataBaseApp.getAuthKey());
+    }
+
+    public UserSyncExpensesModel syncExpenses(Context context, String data) {
+        return restClient.getSyncUserApi().syncExpense(DataBaseApp.getGoogleToken(context), data, DataBaseApp.getAuthKey());
     }
 
 }

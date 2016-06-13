@@ -73,4 +73,8 @@ public class Expenses extends BaseModel {
                 .from(Expenses.class)
                 .queryList();
     }
+
+    public long categoryGetId() {
+        return getCategory().getId();
+    }
 }

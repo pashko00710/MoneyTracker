@@ -51,7 +51,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
         if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
-            Snackbar snackbar = Snackbar.make(loginView, "Internet is not defined", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(loginView, R.string.internet_not_connected, Snackbar.LENGTH_LONG);
             snackbar.show();
             return;
         }

@@ -4,6 +4,7 @@ import com.example.moneytracker.rest.api.GoogleTokenApi;
 import com.example.moneytracker.rest.api.LoginUserApi;
 import com.example.moneytracker.rest.api.LogoutUserApi;
 import com.example.moneytracker.rest.api.RegisterUserApi;
+import com.example.moneytracker.rest.api.SyncUserApi;
 
 import retrofit.RestAdapter;
 
@@ -14,6 +15,7 @@ public class RestClient {
     private LoginUserApi loginUserApi;
     private GoogleTokenApi googleTokenApi;
     private LogoutUserApi logoutUserApi;
+    private SyncUserApi syncUserApi;
 
     public RestClient() {
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -25,6 +27,7 @@ public class RestClient {
         loginUserApi = restAdapter.create(LoginUserApi.class);
         googleTokenApi = restAdapter.create(GoogleTokenApi.class);
         logoutUserApi = restAdapter.create(LogoutUserApi.class);
+        syncUserApi = restAdapter.create(SyncUserApi.class);
     }
 
     public RegisterUserApi getRegisterUserApi() {
@@ -41,5 +44,9 @@ public class RestClient {
 
     public LogoutUserApi getLogoutUserApi() {
         return logoutUserApi;
+    }
+
+    public SyncUserApi getSyncUserApi() {
+        return  syncUserApi;
     }
 }

@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     @Click(R.id.google_login_btn)
     public void googleButton(View loginView) {
         if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
-            Snackbar snackbar = Snackbar.make(loginView, "Internet is not defined", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(loginView, R.string.internet_not_connected, Snackbar.LENGTH_LONG);
             snackbar.show();
             return;
         }
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     @Click(R.id.btnLogin)
     public void login(View loginView) {
         if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
-            Snackbar snackbar = Snackbar.make(loginView, "Internet is not defined", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(loginView, R.string.internet_not_connected, Snackbar.LENGTH_LONG);
             snackbar.show();
             return;
         }
@@ -146,12 +146,4 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
         }
     }
-
-//    public void internetIsNotDefinened(View v) {
-//        if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
-//            Snackbar snackbar = Snackbar.make(v, "Internet is not defined", Snackbar.LENGTH_LONG);
-//            snackbar.show();
-//            return;
-//        }
-//    }
 }

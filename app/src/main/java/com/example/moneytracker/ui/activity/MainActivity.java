@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public String name,email,pictureUrl;
     Context context = this;
+
+    ImageView imageView;
+    TextView userName, userEmail;
 
     @AfterViews
     public void ready() {
@@ -126,6 +130,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        imageView = (ImageView) headerLayout.findViewById(R.id.profile_image);
+        userName = (TextView) headerLayout.findViewById(R.id.username_drawer_header);
+        userEmail = (TextView) headerLayout.findViewById(R.id.email_drawer_header);
     }
 
     @Background
@@ -145,15 +154,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @UiThread
     public void setInfo() {
-        TextView userName = (TextView)findViewById(R.id.username_drawer_header);
-        TextView userEmail = (TextView)findViewById(R.id.email_drawer_header);
+//        TextView userName = (TextView)findViewById(R.id.username_drawer_header);
+//        TextView userEmail = (TextView)findViewById(R.id.email_drawer_header);
         userName.setText(name);
         userEmail.setText(email);
     }
 
     @UiThread
     public void setPicture() {
-        final ImageView imageView = (ImageView)findViewById(R.id.profile_image);
+//        final ImageView imageView = (ImageView)findViewById(R.id.profile_image);
         Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
                 @Override
                 protected void setResource(Bitmap resource) {
@@ -211,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Background
     public void logoutUser() {
         if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
-            Snackbar snackbar = Snackbar.make(drawerLayout, "Internet is not defined", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(drawerLayout, R.string.internet_not_connected , Snackbar.LENGTH_LONG);
             snackbar.show();
             return;
         }
@@ -222,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case ConstantManager.STATUS_SUCCESS:
                 LoginActivity_.intent(this).start();
                 return;
-            case "Error" :
+            case ConstantManager.STATUS_ERROR :
                 Snackbar.make(drawerLayout, R.string.detailsexpense_error_note, Snackbar.LENGTH_SHORT).show();
                 break;
             case ConstantManager.STATUS_UNAUTHORIZED :
