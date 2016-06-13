@@ -30,8 +30,9 @@ public class ExpensesSync {
         Gson gson = new Gson();
 
         for (Expenses expense: listExp){
+//            (int) expense.getId()
             expenseModel.setId((int) expense.getId());
-            expenseModel.setCategoryId(Integer.parseInt(String.valueOf(expense.categoryGetId())));
+            expenseModel.setCategoryId((int) expense.categoryGetId());
             expenseModel.setComment(expense.getDescription());
             expenseModel.setSum(Double.parseDouble(expense.getPrice()));
             expenseModel.setTrDate(expense.getDate());

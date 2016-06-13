@@ -3,6 +3,7 @@ package com.example.moneytracker.rest;
 import android.content.Context;
 
 import com.example.moneytracker.rest.model.GoogleModel;
+import com.example.moneytracker.rest.model.UserExpenseModel;
 import com.example.moneytracker.rest.model.UserLoginModel;
 import com.example.moneytracker.rest.model.UserLogoutModel;
 import com.example.moneytracker.rest.model.UserRegistrationModel;
@@ -42,5 +43,11 @@ public class RestService {
     public UserSyncExpensesModel syncExpenses(Context context, String data) {
         return restClient.getSyncUserApi().syncExpense(DataBaseApp.getGoogleToken(context), data, DataBaseApp.getAuthKey());
     }
+
+    public UserExpenseModel addExpense(int sum, String comment, int categoryId, String trDate, String gToken) {
+        return restClient.getExpenseUserApi().addExpense(sum, comment, categoryId, trDate, gToken, DataBaseApp.getAuthKey());
+    }
+
+
 
 }

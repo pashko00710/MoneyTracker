@@ -21,12 +21,16 @@ import com.example.moneytracker.adapter.SpinnerCategoriesAdapter;
 import com.example.moneytracker.database.MoneyTrackerDataBase;
 import com.example.moneytracker.database.model.Categories;
 import com.example.moneytracker.database.model.Expenses;
+import com.example.moneytracker.rest.RestService;
+import com.example.moneytracker.rest.model.UserExpenseModel;
+import com.example.moneytracker.util.ConstantManager;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.structure.database.transaction.ProcessModelTransaction;
 import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -37,6 +41,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.example.moneytracker.database.model.Categories.getAllCategories;
+import static com.example.moneytracker.util.DataBaseApp.getGoogleToken;
 
 @EActivity(R.layout.activity_details_expense)
 public class DetailsExpenseActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Categories>> {
@@ -128,6 +133,7 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
     public void onClickButtonReady() {
         if(!errorTextInput()) {
             saveExpense();
+//            saveRestExpense();
             onBackPressed();
         }
     }
@@ -175,6 +181,7 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
                     public void processModel(Expenses expense) {
                         Categories category = (Categories) spinner.getSelectedItem();
                         Log.d("??", String.valueOf(category));
+                        saveRestExpense(category);
                         expense.setPrice(editTextSum.getText().toString());
                         expense.setDate(expenseDate.getText().toString());
                         expense.setDescription(editTextNote.getText().toString());
@@ -207,4 +214,20 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
 
     }
 
+    @Background
+    public void saveRestExpense(Categories category) {
+        RestService restService = new RestService();
+        UserExpenseModel userExpenseModel = restService.addExpense(Integer.parseInt(editTextSum.getText().toString()), editTextNote.getText().toString(),
+                Integer.parseInt(String.valueOf(category.getId())), expenseDate.getText().toString(), getGoogleToken(getApplicationContext()));
+        switch (userExpenseModel.getStatus()) {
+            case ConstantManager.STATUS_SUCCESS :
+                Log.d("addExpense", "status:"+userExpenseModel.getStatus());
+                break;
+            case ConstantManager.STATUS_ERROR :
+                Log.d("addExpense", "Error");
+                break;
+            default :
+                break;
+        }
+    }
 }
