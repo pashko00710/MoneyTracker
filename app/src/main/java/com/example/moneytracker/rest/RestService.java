@@ -2,6 +2,7 @@ package com.example.moneytracker.rest;
 
 import android.content.Context;
 
+import com.example.moneytracker.rest.model.CategoriesModel;
 import com.example.moneytracker.rest.model.GoogleModel;
 import com.example.moneytracker.rest.model.UserExpenseModel;
 import com.example.moneytracker.rest.model.UserLoginModel;
@@ -48,6 +49,12 @@ public class RestService {
         return restClient.getExpenseUserApi().addExpense(sum, comment, categoryId, trDate, gToken, DataBaseApp.getAuthKey());
     }
 
+    public CategoriesModel getAllCategories(Context context) {
+        return restClient.getCategoryUserApi().getAllCategories(DataBaseApp.getGoogleToken(context), DataBaseApp.getAuthKey());
+    }
 
+    public CategoriesModel addCategory(String title, Context context) {
+        return restClient.getCategoryUserApi().addCategory(title, DataBaseApp.getGoogleToken(context), DataBaseApp.getAuthKey());
+    }
 
 }

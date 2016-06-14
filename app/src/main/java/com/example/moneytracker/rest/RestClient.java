@@ -1,5 +1,6 @@
 package com.example.moneytracker.rest;
 
+import com.example.moneytracker.rest.api.CategoryUserApi;
 import com.example.moneytracker.rest.api.ExpenseUserApi;
 import com.example.moneytracker.rest.api.GoogleTokenApi;
 import com.example.moneytracker.rest.api.LoginUserApi;
@@ -18,6 +19,7 @@ public class RestClient {
     private LogoutUserApi logoutUserApi;
     private SyncUserApi syncUserApi;
     private ExpenseUserApi expenseUserApi;
+    private CategoryUserApi categoryUserApi;
 
     public RestClient() {
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -31,6 +33,7 @@ public class RestClient {
         logoutUserApi = restAdapter.create(LogoutUserApi.class);
         syncUserApi = restAdapter.create(SyncUserApi.class);
         expenseUserApi = restAdapter.create(ExpenseUserApi.class);
+        categoryUserApi = restAdapter.create(CategoryUserApi.class);
     }
 
     public RegisterUserApi getRegisterUserApi() {
@@ -52,7 +55,10 @@ public class RestClient {
     public SyncUserApi getSyncUserApi() {
         return  syncUserApi;
     }
-    public ExpenseUserApi getExpenseUserApi() {
-        return  expenseUserApi;
+
+    public ExpenseUserApi getExpenseUserApi() { return  expenseUserApi; }
+
+    public CategoryUserApi getCategoryUserApi() {
+        return  categoryUserApi;
     }
 }
