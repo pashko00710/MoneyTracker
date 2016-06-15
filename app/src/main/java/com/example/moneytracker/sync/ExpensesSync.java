@@ -17,21 +17,22 @@ public class ExpensesSync {
 
 
     public static void synceExpenses(Context context) {
+        if(Expenses.getAllExpenses().isEmpty()) return;
         RestService restService = new RestService();
         UserSyncExpensesModel userSyncExpensesModel = restService.syncExpenses(context,getDataSync());
         Log.d(TAG, userSyncExpensesModel.getStatus());
 
     }
 
-    public static String getDataSync(){
+    public static String getDataSync() {
         List<Expenses> listExp = Expenses.getAllExpenses();
         List<String> listStr = new ArrayList<>();
         ExpensesModel expenseModel = new ExpensesModel();
         Gson gson = new Gson();
 
-        for (Expenses expense: listExp){
-//            (int) expense.getId()
-            expenseModel.setId((int) expense.getId());
+        for (Expenses expense: listExp) {
+            //(int) expense.getId()
+            expenseModel.setId(0);
             expenseModel.setCategoryId((int) expense.categoryGetId());
             expenseModel.setComment(expense.getDescription());
             expenseModel.setSum(Double.parseDouble(expense.getPrice()));
