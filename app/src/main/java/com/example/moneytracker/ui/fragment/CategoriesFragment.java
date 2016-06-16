@@ -144,25 +144,6 @@ public class CategoriesFragment extends Fragment {
                 } else {
                     adapter.refresh(data);
                 }
-//                categoriesAdapter = new CategoriesAdapter(data, new ClickListener() {
-//                    @Override
-//                    public void onItemClick(int position) {
-//                        if (actionMode == null) {
-//                            toggleSection(position);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public boolean onItemLongClick(int position) {
-//                        if (actionMode == null) {
-//                            AppCompatActivity activity = (AppCompatActivity) getActivity();
-//                            actionMode = activity.startSupportActionMode(actionModeCallback);
-//                        }
-//                        toggleSection(position);
-//                        return true;
-//                    }
-//                });
-//                categoriesListRecyclerView.setAdapter(categoriesAdapter);
             }
 
             @Override

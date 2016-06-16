@@ -74,14 +74,6 @@ public class CategoriesAdapter extends SelectableAdapter<CategoriesAdapter.Categ
         }
     }
 
-
-    private void removeCategory(int position) {
-        if (categoryList.get(position) != null) {
-            categoryList.get(position).delete();
-            categoryList.remove(position);
-        }
-    }
-
     class CategoriesHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         View view;
 
