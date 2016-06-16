@@ -1,11 +1,15 @@
 package com.example.moneytracker.rest;
 
 import android.content.Context;
-import android.util.Log;
 
+import com.example.moneytracker.rest.model.CategoriesModel;
 import com.example.moneytracker.rest.model.GoogleModel;
+import com.example.moneytracker.rest.model.UserExpenseModel;
 import com.example.moneytracker.rest.model.UserLoginModel;
+import com.example.moneytracker.rest.model.UserLogoutModel;
 import com.example.moneytracker.rest.model.UserRegistrationModel;
+import com.example.moneytracker.rest.model.UserSyncCategoriesModel;
+import com.example.moneytracker.rest.model.UserSyncExpensesModel;
 import com.example.moneytracker.util.DataBaseApp;
 
 public class RestService {
@@ -26,8 +30,31 @@ public class RestService {
     }
 
     public GoogleModel getJsonModel(Context context) {
-        Log.d("getJson", String.valueOf(DataBaseApp.getGoogleToken(context)));
         return restClient.getGoogleTokenApi().googleJsonToken(DataBaseApp.getGoogleToken(context));
+    }
+
+    public UserLogoutModel logout() {
+        return restClient.getLogoutUserApi().logoutUser();
+    }
+
+    public UserSyncCategoriesModel syncCategories(Context context, String data) {
+        return restClient.getSyncUserApi().syncCategory(DataBaseApp.getGoogleToken(context), data, DataBaseApp.getAuthKey());
+    }
+
+    public UserSyncExpensesModel syncExpenses(Context context, String data) {
+        return restClient.getSyncUserApi().syncExpense(DataBaseApp.getGoogleToken(context), data, DataBaseApp.getAuthKey());
+    }
+
+    public UserExpenseModel addExpense(int sum, String comment, int categoryId, String trDate, String gToken) {
+        return restClient.getExpenseUserApi().addExpense(sum, comment, categoryId, trDate, gToken, DataBaseApp.getAuthKey());
+    }
+
+    public CategoriesModel getAllCategories(Context context) {
+        return restClient.getCategoryUserApi().getAllCategories(DataBaseApp.getGoogleToken(context), DataBaseApp.getAuthKey());
+    }
+
+    public CategoriesModel addCategory(String title, Context context) {
+        return restClient.getCategoryUserApi().addCategory(title, DataBaseApp.getGoogleToken(context), DataBaseApp.getAuthKey());
     }
 
 }

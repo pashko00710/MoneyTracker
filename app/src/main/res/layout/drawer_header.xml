@@ -8,8 +8,6 @@
     android:paddingTop="@dimen/drawer_status_bar_height"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-
-
     <ImageView
             android:layout_height="@dimen/header_imeageavatarsize"
             android:layout_width="@dimen/header_imeageavatarsize"

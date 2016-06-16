@@ -144,4 +144,5 @@ public class ExpenseFragment extends Fragment {
         category.setName("Communication");
         category.insert();
     }
+
 }

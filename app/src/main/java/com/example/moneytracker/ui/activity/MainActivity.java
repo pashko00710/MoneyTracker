@@ -3,6 +3,7 @@ package com.example.moneytracker.ui.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,8 +15,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,11 +25,15 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.moneytracker.R;
 import com.example.moneytracker.rest.RestService;
 import com.example.moneytracker.rest.model.GoogleModel;
+import com.example.moneytracker.rest.model.UserLogoutModel;
+import com.example.moneytracker.sync.TrackerSyncAdapter;
 import com.example.moneytracker.ui.fragment.CategoriesFragment_;
 import com.example.moneytracker.ui.fragment.ExpenseFragment_;
 import com.example.moneytracker.ui.fragment.SettingsFragment_;
 import com.example.moneytracker.ui.fragment.StatisticsFragment_;
+import com.example.moneytracker.util.ConstantManager;
 import com.example.moneytracker.util.DataBaseApp;
+import com.example.moneytracker.util.NetworkStatusChecker;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -45,11 +50,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     @ViewById(R.id.navigation_view)
     NavigationView navigationView;
-//    @ViewById(R.id.profile_image)
-//    ImageView imageView;
 
     public String name,email,pictureUrl;
     Context context = this;
+
+    ImageView imageView;
+    TextView userName, userEmail;
 
     @AfterViews
     public void ready() {
@@ -59,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupDrawerLayout();
         backStack();
         setHeaderDrawerInfo();
+
+        TrackerSyncAdapter.initializeSyncAdapter(this);
     }
 
     private void backStack() {
@@ -122,6 +130,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        imageView = (ImageView) headerLayout.findViewById(R.id.profile_image);
+        userName = (TextView) headerLayout.findViewById(R.id.username_drawer_header);
+        userEmail = (TextView) headerLayout.findViewById(R.id.email_drawer_header);
     }
 
     @Background
@@ -133,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             name = googleModel.getName();
             email = googleModel.getEmail();
             pictureUrl = googleModel.getPicture();
-            Log.d("GoogleModel", name);
 
             setInfo();
             setPicture();
@@ -142,15 +154,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @UiThread
     public void setInfo() {
-        TextView userName = (TextView)findViewById(R.id.username_drawer_header);
-        TextView userEmail = (TextView)findViewById(R.id.email_drawer_header);
+//        TextView userName = (TextView)findViewById(R.id.username_drawer_header);
+//        TextView userEmail = (TextView)findViewById(R.id.email_drawer_header);
         userName.setText(name);
         userEmail.setText(email);
     }
 
     @UiThread
     public void setPicture() {
-        final ImageView imageView = (ImageView)findViewById(R.id.profile_image);
+//        final ImageView imageView = (ImageView)findViewById(R.id.profile_image);
         Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
                 @Override
                 protected void setResource(Bitmap resource) {
@@ -197,10 +209,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setTitle("SettingsFragment");
                 replaceFragment(new SettingsFragment_());
                 break;
+            case R.id.drawer_exit:
+                logoutUser();
             default:
                 break;
         }
         return true;
+    }
+
+    @Background
+    public void logoutUser() {
+        if(!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
+            Snackbar snackbar = Snackbar.make(drawerLayout, R.string.internet_not_connected , Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return;
+        }
+        RestService restService = new RestService();
+        UserLogoutModel userLogoutModel = restService.logout();
+
+        switch (userLogoutModel.getStatus()) {
+            case ConstantManager.STATUS_SUCCESS:
+                LoginActivity_.intent(this).start();
+                return;
+            case ConstantManager.STATUS_ERROR :
+                Snackbar.make(drawerLayout, R.string.detailsexpense_error_note, Snackbar.LENGTH_SHORT).show();
+                break;
+            case ConstantManager.STATUS_UNAUTHORIZED :
+                LoginActivity_.intent(this).start();
+                return;
+            case ConstantManager.STATUS_EMPTY :
+                DataBaseApp.setAuthToken("");
+                LoginActivity_.intent(this).start();
+                return;
+        }
     }
 
 }
