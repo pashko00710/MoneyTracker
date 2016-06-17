@@ -5,20 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        android:textSize="@dimen/expense_text_size_title"
-        android:id="@+id/category_name">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
+            android:textSize="@dimen/expense_text_size_title"
+            android:id="@+id/category_name">
 
-    </TextView>
+        </TextView>
 
-    <View
+        <View
             android:id="@+id/selected_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/selected_color"
             android:visibility="invisible"/>
+    </RelativeLayout>
 
 </LinearLayout>
