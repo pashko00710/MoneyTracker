@@ -180,7 +180,6 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
                     @Override
                     public void processModel(Expenses expense) {
                         Categories category = (Categories) spinner.getSelectedItem();
-                        Log.d("??", String.valueOf(category));
                         saveRestExpense(category);
                         expense.setPrice(editTextSum.getText().toString());
                         expense.setDate(expenseDate.getText().toString());
@@ -217,7 +216,7 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
     @Background
     public void saveRestExpense(Categories category) {
         RestService restService = new RestService();
-        UserExpenseModel userExpenseModel = restService.addExpense(Integer.parseInt(editTextSum.getText().toString()), editTextNote.getText().toString(),
+        UserExpenseModel userExpenseModel = restService.addExpense(Double.parseDouble(editTextSum.getText().toString()), editTextNote.getText().toString(),
                 Integer.parseInt(String.valueOf(category.getId())), expenseDate.getText().toString(), getGoogleToken(getApplicationContext()));
         switch (userExpenseModel.getStatus()) {
             case ConstantManager.STATUS_SUCCESS :

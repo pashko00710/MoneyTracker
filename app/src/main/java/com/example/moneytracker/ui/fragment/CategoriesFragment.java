@@ -1,22 +1,31 @@
 package com.example.moneytracker.ui.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.moneytracker.R;
 import com.example.moneytracker.adapter.CategoriesAdapter;
+import com.example.moneytracker.adapter.ClickListener;
 import com.example.moneytracker.database.model.Categories;
 
 import org.androidannotations.annotations.AfterViews;
@@ -46,20 +55,69 @@ public class CategoriesFragment extends Fragment {
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItem;
 
+//    @ViewById(R.id.dialog_add_edittext)
+//    TextInputLayout textInputLayoutDialog;
+
+    Dialog dialog;
+
     private static final String FILTER_ID = "filter_id";
+    private CategoriesAdapter categoriesAdapter;
+    private ActionMode actionMode;
+    private ActionModeCallback actionModeCallback = new ActionModeCallback();
 
     @Click(R.id.categories_fabBtn)
     public void fabClick() {
-//        if(getView()!= null && expenseFabBtn.isPressed()) {
-        Snackbar.make(rootLayout, "Snackbar in CategoriesFragment!", Snackbar.LENGTH_SHORT)
-                .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_add_layout);
+        final EditText editTextDialog = (EditText) dialog.findViewById(R.id.dialog_input_text);
+        Button buttonOk = (Button) dialog.findViewById(R.id.dialog_ok);
+        Button buttonCancel = (Button) dialog.findViewById(R.id.dialog_cancel);
 
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Editable text = editTextDialog.getText();
+                Log.d("here", String.valueOf(TextUtils.isEmpty(text)));
+                if(!TextUtils.isEmpty(text)) {
+                    if(!errorTextInput(text)) {
+                        addCategory(text);
+                        dialog.dismiss();
                     }
-                })
-                .show();
-//        }
+                }
+            }
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.background_light);
+        dialog.show();
+    }
+
+    public void addCategory(Editable text) {
+            Categories addCategories = new Categories();
+            addCategories.setName(text.toString());
+            addCategories.insert();
+            loadCategories("");
+//        addRestCategory();
+    }
+
+//    public void addRestCategory() {
+//
+//    }
+
+    private boolean errorTextInput(Editable text) {
+        if(text.length() < 2) {
+            Toast.makeText(getContext(), "Add more letters", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Nice", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     @AfterViews
@@ -114,7 +172,30 @@ public class CategoriesFragment extends Fragment {
 
             @Override
             public void onLoadFinished(Loader<List<Categories>> loader, List<Categories> data) {
-                categoriesListRecyclerView.setAdapter(new CategoriesAdapter(data));
+                CategoriesAdapter adapter = (CategoriesAdapter) categoriesListRecyclerView.getAdapter();
+                if(adapter == null) {
+                    categoriesAdapter = new CategoriesAdapter(data, new ClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            if (actionMode != null) {
+                                toggleSection(position);
+                            }
+                        }
+
+                        @Override
+                        public boolean onItemLongClick(int position) {
+                            if (actionMode == null) {
+                                AppCompatActivity activity = (AppCompatActivity) getActivity();
+                                actionMode = activity.startSupportActionMode(actionModeCallback);
+                            }
+                            toggleSection(position);
+                            return true;
+                        }
+                    });
+                    categoriesListRecyclerView.setAdapter(categoriesAdapter);
+                } else {
+                    adapter.refresh(data);
+                }
             }
 
             @Override
@@ -124,13 +205,49 @@ public class CategoriesFragment extends Fragment {
         });
     }
 
-//    private void insertCategories() {
-//        Categories category = new Categories();
-//        category.setName("Food");
-//        category.insert();
-//        category.setName("Cinema");
-//        category.insert();
-//        category.setName("Transport");
-//        category.insert();
-//    }
+    private void toggleSection(int position){
+        categoriesAdapter.toggleSelection(position);
+        int count = categoriesAdapter.getSelectedItemCount();
+        if (count == 0){
+            actionMode.finish();
+        }
+        else {
+            actionMode.setTitle(String.valueOf(count));
+            actionMode.invalidate();
+        }
+    }
+
+
+    private class ActionModeCallback implements ActionMode.Callback {
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.item_remove:
+                    categoriesAdapter.removeItems(categoriesAdapter.getSelectedItems());
+                    mode.finish();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            categoriesAdapter.clearSelection();
+            actionMode = null;
+        }
+    }
+
 }
