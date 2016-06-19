@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You want to add a category?"
+        android:textSize="20sp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/dialog_input_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter the name of the category"
+        android:maxLength="15"
+        android:layout_marginBottom="24dp">
+    </EditText>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/dialog_relative">
+    <Button
+        android:id="@+id/dialog_ok"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:text="Ok" />
+
+    <Button
+        android:id="@+id/dialog_cancel"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:padding="8dp"
+        android:text="Cancel" />
+
+    </RelativeLayout>
+
+</LinearLayout>
