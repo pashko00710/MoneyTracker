@@ -13,7 +13,7 @@ public interface CategoryUserApi {
 
     @GET("/categories/add")
     CategoriesModel addCategory(
-            @Query("title") String title,
             @Query("google_token") String gToken,
+            @Query("title") String title,
             @Query("token")String token);
 }

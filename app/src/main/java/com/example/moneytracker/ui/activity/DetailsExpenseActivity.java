@@ -147,6 +147,12 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
                 .show();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.enter_fade_in, R.anim.exit_push_out);
+    }
+
 
     @Override
     public Loader<List<Categories>> onCreateLoader(int id, Bundle args) {

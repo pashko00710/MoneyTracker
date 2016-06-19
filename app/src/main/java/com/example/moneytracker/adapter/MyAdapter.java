@@ -1,9 +1,13 @@
 package com.example.moneytracker.adapter;
 
+import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.moneytracker.R;
@@ -18,9 +22,12 @@ public class MyAdapter extends SelectableAdapter<MyAdapter.ViewHolder> {
 
     private List<Expenses> mDataset;
     private ClickListener clickListener;
+    private Context context;
+    private int lastPosition = -1;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Expenses> myDataset, ClickListener clickListener) {
+    public MyAdapter(Context context, List<Expenses> myDataset, ClickListener clickListener) {
+        this.context = context;
         mDataset = myDataset;
         this.clickListener = clickListener;
     }
@@ -36,6 +43,14 @@ public class MyAdapter extends SelectableAdapter<MyAdapter.ViewHolder> {
         return vh;
     }
 
+    private void setAnimation(View view, int position) {
+        if (position > lastPosition){
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_up);
+            view.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -44,6 +59,7 @@ public class MyAdapter extends SelectableAdapter<MyAdapter.ViewHolder> {
         holder.date.setText(expense.getDate());
         holder.category.setText(expense.getCategory().getName());
         holder.price.setText(expense.getPrice());
+        setAnimation(holder.cardView, position);
         holder.view.setVisibility(isSelected(position) ? View.VISIBLE : View.INVISIBLE);
     }
 
@@ -103,9 +119,11 @@ public class MyAdapter extends SelectableAdapter<MyAdapter.ViewHolder> {
         public TextView price;
         public TextView date;
         public TextView category;
+        CardView cardView;
         private ClickListener clickListener;
         public ViewHolder(View v, ClickListener clickListener) {
             super(v);
+            cardView = (CardView) v.findViewById(R.id.card_view);
             view = v.findViewById(R.id.selected_overlay);
             description = (TextView) v.findViewById(R.id.expense_item_description);
             price = (TextView) v.findViewById(R.id.expense_item_price);

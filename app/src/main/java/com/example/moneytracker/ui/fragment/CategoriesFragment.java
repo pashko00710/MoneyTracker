@@ -99,20 +99,35 @@ public class CategoriesFragment extends Fragment {
     }
 
     public void addCategory(Editable text) {
-            Categories addCategories = new Categories();
-            addCategories.setName(text.toString());
-            addCategories.insert();
-            loadCategories("");
-//        addRestCategory();
+        Categories addCategories = new Categories();
+//        addRestCategory(text.toString());
+        addCategories.setName(text.toString());
+        addCategories.insert();
+        loadCategories("");
     }
 
-//    public void addRestCategory() {
-//
+//    @Background
+//    public void addRestCategory(String text) {
+//        RestService restService = new RestService();
+//        CategoriesModel addCategory = restService.addCategory(text, getContext());
+//        switch(addCategory.getStatus()) {
+//            case ConstantManager.STATUS_SUCCESS :
+//                Log.d("addCategory", "Success");
+//                break;
+//            case ConstantManager.STATUS_UNAUTHORIZED:
+//                LoginActivity_.intent(this).start();
+//                return;
+//            case ConstantManager.STATUS_ERROR:
+//                Log.d("addCategory", "Ошибка при добавлении категории");
+//                break;
+//            default:
+//                break;
+//        }
 //    }
 
     private boolean errorTextInput(Editable text) {
         if(text.length() < 2) {
-            Toast.makeText(getContext(), "Add more letters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Minimum two letters", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "Nice", Toast.LENGTH_SHORT).show();
             return false;

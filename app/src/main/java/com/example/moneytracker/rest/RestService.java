@@ -54,7 +54,7 @@ public class RestService {
     }
 
     public CategoriesModel addCategory(String title, Context context) {
-        return restClient.getCategoryUserApi().addCategory(title, DataBaseApp.getGoogleToken(context), DataBaseApp.getAuthKey());
+        return restClient.getCategoryUserApi().addCategory(DataBaseApp.getGoogleToken(context), title, DataBaseApp.getAuthKey());
     }
 
 }

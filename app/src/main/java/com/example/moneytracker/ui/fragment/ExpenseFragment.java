@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +52,9 @@ public class ExpenseFragment extends Fragment {
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItem;
 
+    @ViewById(R.id.expense_swipe_refresh_layout)
+    SwipeRefreshLayout expenseSwipeRefreshLayout;
+
     private static final String FILTER_ID = "filter_id";
     private MyAdapter expenseAdapter;
     private ActionModeCallback actionModeCallback = new ActionModeCallback();
@@ -59,6 +63,7 @@ public class ExpenseFragment extends Fragment {
     @Click(R.id.expense_fabBtn)
     public void fabClick() {
         DetailsExpenseActivity_.intent(this).start();
+        getActivity().overridePendingTransition(R.anim.enter_pull_in, R.anim.exit_fade_out);
     }
 
     @AfterViews
@@ -73,7 +78,16 @@ public class ExpenseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        expenseSwipeRefreshLayout.setColorSchemeColors(new int[]{R.color.colorPrimary,
+                R.color.colorPrimaryDark,
+                android.R.color.white});
         loadExpenses("");
+        expenseSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadExpenses("");
+            }
+        });
     }
 
     @Override
@@ -124,9 +138,10 @@ public class ExpenseFragment extends Fragment {
             }
             @Override
             public void onLoadFinished(Loader<List<Expenses>> loader, List<Expenses> data) {
+                expenseSwipeRefreshLayout.setRefreshing(false);
                 MyAdapter adapter = (MyAdapter) expensesListRecyclerView.getAdapter();
                 if(adapter == null) {
-                    expenseAdapter = new MyAdapter(data, new ClickListener() {
+                    expenseAdapter = new MyAdapter(getActivity(), data, new ClickListener() {
                         @Override
                         public void onItemClick(int position) {
                             if (actionMode != null) {
