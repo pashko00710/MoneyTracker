@@ -163,7 +163,6 @@ public class ExpenseFragment extends Fragment {
                 } else {
                     adapter.refresh(data);
                 }
-//                expensesListRecyclerView.setAdapter(new MyAdapter(data));
             }
             @Override
             public void onLoaderReset(Loader<List<Expenses>> loader) {

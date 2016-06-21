@@ -6,6 +6,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorDetailsExpenseButton">#b1000000</color>
-    <color name="selected_color">#d95e5e</color>
+    <color name="selected_color">#55032ce2</color>
     <color name="background_color">#dadbdc</color>
 </resources>

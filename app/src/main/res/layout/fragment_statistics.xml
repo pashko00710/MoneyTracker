@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.fragment.StatisticsFragment">
+    tools:context=".ui.fragment.StatisticsFragment_">
 
-    <com.agrotrading.kancher.moneytracker.ui.PieChartView
+    <com.example.moneytracker.ui.PieChartView
         android:id="@+id/pie_chart"
         android:layout_width="300dp"
         android:layout_height="300dp" />

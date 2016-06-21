@@ -48,4 +48,5 @@ dependencies {
     compile "com.squareup.okhttp:okhttp:2.2.0"
     compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.5'
 }

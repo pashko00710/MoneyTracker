@@ -44,7 +44,7 @@ public class PieChartView extends View {
     }
 
     public void setDataPoints(float[] dataPoints) {
-        this.dataPoints = dataPoints;`
+        this.dataPoints = dataPoints;
         invalidate();
     }
 
