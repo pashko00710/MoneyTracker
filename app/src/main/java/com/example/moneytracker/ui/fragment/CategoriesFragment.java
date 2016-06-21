@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,6 +55,9 @@ public class CategoriesFragment extends Fragment {
 
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItem;
+
+    @ViewById(R.id.categories_swipe_refresh_layout)
+    SwipeRefreshLayout categoriesSwipeRefreshLayout;
 
 //    @ViewById(R.id.dialog_add_edittext)
 //    TextInputLayout textInputLayoutDialog;
@@ -143,7 +147,16 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        categoriesSwipeRefreshLayout.setColorSchemeColors(new int[]{R.color.colorPrimary,
+                R.color.colorPrimaryDark,
+                android.R.color.white});
         loadCategories("");
+        categoriesSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadCategories("");
+            }
+        });
     }
 
     @Override
@@ -187,9 +200,10 @@ public class CategoriesFragment extends Fragment {
 
             @Override
             public void onLoadFinished(Loader<List<Categories>> loader, List<Categories> data) {
+                categoriesSwipeRefreshLayout.setRefreshing(false);
                 CategoriesAdapter adapter = (CategoriesAdapter) categoriesListRecyclerView.getAdapter();
                 if(adapter == null) {
-                    categoriesAdapter = new CategoriesAdapter(data, new ClickListener() {
+                    categoriesAdapter = new CategoriesAdapter(getActivity() ,data, new ClickListener() {
                         @Override
                         public void onItemClick(int position) {
                             if (actionMode != null) {
