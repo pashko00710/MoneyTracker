@@ -15,13 +15,23 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/expense_text_size_title"
-            android:gravity="center|left"
+            android:layout_gravity="center|left"
             android:layout_marginEnd="@dimen/expense_margin_end_title"
             android:paddingLeft="16dp"
+            android:textColor="@color/colorPrimaryDark"
             android:id="@+id/category_name">
         </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/expense_text_size_title"
+            android:layout_gravity="right|center"
+            android:text="500"
+            android:paddingRight="16dp"
+            android:id="@+id/category_price"/>
 
         <View
             android:id="@+id/selected_overlay"

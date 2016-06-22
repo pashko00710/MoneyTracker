@@ -34,6 +34,8 @@ public class Categories extends BaseModel {
         return expenses;
     }
 
+
+
     public void setName(String name) {
         this.name = name;
     }

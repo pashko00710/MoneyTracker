@@ -87,6 +87,8 @@ public class CategoriesFragment extends Fragment {
                         addCategory(text);
                         dialog.dismiss();
                     }
+                } else {
+                    Toast.makeText(getActivity(), "Enter a name for the category", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -2,10 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:orientation="vertical"
     tools:context=".ui.fragment.StatisticsFragment_">
 
-    <com.example.moneytracker.ui.PieChartView
+    <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pie_chart"
         android:layout_width="300dp"
         android:layout_height="300dp" />
