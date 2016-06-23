@@ -59,4 +59,5 @@
 
     <string name="content_authority">com.example.moneytracker</string>
     <string name="sync_account_type">moneytracker.example.com</string>
+    <string name="delete_text">Delete</string>
 </resources>
