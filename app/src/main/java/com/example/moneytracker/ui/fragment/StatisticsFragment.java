@@ -33,9 +33,6 @@ import java.util.Random;
 public class StatisticsFragment extends Fragment {
     @ViewById(R.id.pie_chart)
     PieChart pieChart;
-
-    ArrayList<String> labels = new ArrayList<String>();
-    ArrayList<Entry> entries = new ArrayList<>();
     Random random = new Random();
     int[] colors = {Color.argb(128, random.nextInt(256), random.nextInt(256), random.nextInt(256)),
             Color.argb(128, random.nextInt(256), random.nextInt(256), random.nextInt(256)),
@@ -111,6 +108,8 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void setDataChart(List<Categories> categories) {
+        ArrayList<String> labels = new ArrayList<String>();
+        ArrayList<Entry> entries = new ArrayList<>();
         for (Categories category: categories) {
             if(category.getCategoryTotal() != 0.f) {
                 Log.d("Statistic2", "getCategoryTotal: "+category.getCategoryTotal());
@@ -126,7 +125,7 @@ public class StatisticsFragment extends Fragment {
         PieData data = new PieData(labels, dataset);
         pieChart.animateY(2000);
         pieChart.setData(data);
-//        pieChart.highlightValues(null);
+        pieChart.highlightValues(null);
         pieChart.invalidate();
     }
 
