@@ -124,7 +124,7 @@ public class ExpenseFragment extends Fragment {
     }
 
     private void loadExpenses(final String filter) {
-        getLoaderManager().restartLoader(1, null, new LoaderManager.LoaderCallbacks<List<Expenses>>() {
+        getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<Expenses>>() {
             @Override
             public Loader<List<Expenses>> onCreateLoader(int id, Bundle args) {
                 final AsyncTaskLoader<List<Expenses>> loader = new AsyncTaskLoader<List<Expenses>>(getActivity()) {

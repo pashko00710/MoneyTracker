@@ -111,16 +111,12 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void setDataChart(List<Categories> categories) {
-        int ind=0;
         for (Categories category: categories) {
-            if(category.getCategoryTotal() == 0) {
-                continue;
+            if(category.getCategoryTotal() != 0.f) {
+                Log.d("Statistic2", "getCategoryTotal: "+category.getCategoryTotal());
+                labels.add(category.getName());
+                entries.add(new Entry(category.getCategoryTotal(), labels.size()-1));
             }
-            Entry entry = new Entry(category.getCategoryTotal(), ind);
-            Log.d("Statistic2", "getCategoryTotal: "+category.getCategoryTotal());
-            entries.add(entry);
-            labels.add(category.getName());
-            ind++;
         }
 
         PieDataSet dataset = new PieDataSet(entries, "");
@@ -128,9 +124,9 @@ public class StatisticsFragment extends Fragment {
         dataset.setColors(colors);
 
         PieData data = new PieData(labels, dataset);
-        pieChart.setData(data);
         pieChart.animateY(2000);
-        pieChart.highlightValues(null);
+        pieChart.setData(data);
+//        pieChart.highlightValues(null);
         pieChart.invalidate();
     }
 
@@ -140,7 +136,6 @@ public class StatisticsFragment extends Fragment {
         for (Expenses expense: listExp) {
             total += Float.valueOf(expense.getPrice());
         }
-        Log.d("Statistic", "getTotal: "+total);
         return total;
     }
 
