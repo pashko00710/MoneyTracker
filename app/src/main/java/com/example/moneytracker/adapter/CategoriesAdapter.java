@@ -42,6 +42,7 @@ public class CategoriesAdapter extends SelectableAdapter<CategoriesAdapter.Categ
     public void onBindViewHolder(CategoriesHolder holder, int position) {
         Categories category = categoryList.get(position);
         holder.name.setText(category.getName());
+        holder.catPrice.setText(String.valueOf((category.getCategoryTotal())));
         setAnimation(holder.cardView, position);
         holder.view.setVisibility(isSelected(position) ? View.VISIBLE : View.INVISIBLE);
 
@@ -94,11 +95,13 @@ public class CategoriesAdapter extends SelectableAdapter<CategoriesAdapter.Categ
         View view;
         private ClickListener clickListener;
         public TextView name;
+        public TextView catPrice;
         private CardView cardView;
         public CategoriesHolder(View v, ClickListener clickListener) {
             super(v);
             cardView = (CardView) v.findViewById(R.id.categories_card_view);
             view = v.findViewById(R.id.selected_overlay);
+            catPrice = (TextView) v. findViewById(R.id.category_price);
             name = (TextView) v.findViewById(R.id.category_name);
             this.clickListener = clickListener;
             v.setOnClickListener(this);

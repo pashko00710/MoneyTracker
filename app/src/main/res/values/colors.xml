@@ -8,4 +8,5 @@
     <color name="colorDetailsExpenseButton">#b1000000</color>
     <color name="selected_color">#55032ce2</color>
     <color name="background_color">#dadbdc</color>
+    <color name="color_grey">#9c9c9c</color>
 </resources>

@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moneytracker.R;
@@ -58,6 +59,9 @@ public class CategoriesFragment extends Fragment {
 
     @ViewById(R.id.categories_swipe_refresh_layout)
     SwipeRefreshLayout categoriesSwipeRefreshLayout;
+
+    @ViewById(R.id.category_price)
+    TextView catPrice;
 
 //    @ViewById(R.id.dialog_add_edittext)
 //    TextInputLayout textInputLayoutDialog;
@@ -202,6 +206,7 @@ public class CategoriesFragment extends Fragment {
 
             @Override
             public void onLoadFinished(Loader<List<Categories>> loader, List<Categories> data) {
+//                setPriceForCategory(data);
                 categoriesSwipeRefreshLayout.setRefreshing(false);
                 CategoriesAdapter adapter = (CategoriesAdapter) categoriesListRecyclerView.getAdapter();
                 if(adapter == null) {
@@ -235,6 +240,16 @@ public class CategoriesFragment extends Fragment {
             }
         });
     }
+
+//    private void setPriceForCategory(List<Categories> categories) {
+//        for (Categories category: categories) {
+//            Log.d("LALlfsdlfsdl", "setPriceForCategory: "+ category.getCategoryTotal());
+////            if(category.getCategoryTotal() == 0) {
+////                catPrice.setText((int) 0.f);
+////            }
+////            catPrice.setText((int) category.getCategoryTotal());
+//        }
+//    }
 
     private void toggleSection(int position){
         categoriesAdapter.toggleSelection(position);

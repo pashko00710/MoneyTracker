@@ -12,7 +12,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.List;
 
 @ModelContainer
-@Table(database = MoneyTrackerDataBase.class)
+@Table(database = MoneyTrackerDataBase.class, name="Categories")
 public class Categories extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
@@ -34,14 +34,20 @@ public class Categories extends BaseModel {
         return expenses;
     }
 
-
-
     public void setName(String name) {
         this.name = name;
     }
 
     public long getId() {
         return this.id;
+    }
+
+    public float getCategoryTotal() {
+        float total = 0.f;
+        for (Expenses expense:getExpenses()) {
+            total += Float.valueOf(expense.getPrice());
+        }
+        return total;
     }
 
     public String getName() {

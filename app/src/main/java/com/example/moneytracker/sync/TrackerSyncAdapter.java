@@ -27,7 +27,7 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
         Log.e(TAG, "Sync");
 
         CategoriesSync.syncCategories(getContext());
-        ExpensesSync.synceExpenses(getContext());
+        ExpensesSync.syncExpenses(getContext());
     }
 
     public static void syncImmediately(Context context){
