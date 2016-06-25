@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void backStack() {
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+        getFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
 
             @Override
             public void onBackStackChanged() {
-                Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_container);
+                Fragment f = getFragmentManager().findFragmentById(R.id.main_container);
                 if (f != null){
                     updateTitleAndDrawer (f);
                 }
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String backStateName =  fragment.getClass().getName();
         String fragmentTag = backStateName;
 
-        FragmentManager manager = getSupportFragmentManager();
+        FragmentManager manager = getFragmentManager();
         boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
 
         if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null){ //fragment not in back stack, create it.
@@ -154,15 +154,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @UiThread
     public void setInfo() {
-//        TextView userName = (TextView)findViewById(R.id.username_drawer_header);
-//        TextView userEmail = (TextView)findViewById(R.id.email_drawer_header);
         userName.setText(name);
         userEmail.setText(email);
     }
 
     @UiThread
     public void setPicture() {
-//        final ImageView imageView = (ImageView)findViewById(R.id.profile_image);
         Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
                 @Override
                 protected void setResource(Bitmap resource) {

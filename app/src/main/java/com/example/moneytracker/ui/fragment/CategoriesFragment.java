@@ -4,10 +4,10 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.AsyncTaskLoader;
+import android.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -137,9 +137,9 @@ public class CategoriesFragment extends Fragment {
 
     private boolean errorTextInput(Editable text) {
         if(text.length() < 2) {
-            Toast.makeText(getContext(), "Minimum two letters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Minimum two letters", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), "Nice", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Nice", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
