@@ -1,13 +1,16 @@
 package com.example.moneytracker.ui.fragment;
 
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.AsyncTaskLoader;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -15,11 +18,13 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 import com.example.moneytracker.R;
+import com.example.moneytracker.adapter.ClickListener;
 import com.example.moneytracker.adapter.MyAdapter;
 import com.example.moneytracker.database.model.Categories;
 import com.example.moneytracker.database.model.Expenses;
 import com.example.moneytracker.ui.activity.DetailsExpenseActivity_;
 import com.example.moneytracker.util.NetworkStatusChecker;
+import com.example.moneytracker.util.NotificationUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -48,16 +53,24 @@ public class ExpenseFragment extends Fragment {
     @OptionsMenuItem(R.id.search_action)
     MenuItem menuItem;
 
+    @ViewById(R.id.expense_swipe_refresh_layout)
+    SwipeRefreshLayout expenseSwipeRefreshLayout;
+
     private static final String FILTER_ID = "filter_id";
+    private MyAdapter expenseAdapter;
+    private ActionModeCallback actionModeCallback = new ActionModeCallback();
+    private ActionMode actionMode;
 
     @Click(R.id.expense_fabBtn)
     public void fabClick() {
         DetailsExpenseActivity_.intent(this).start();
+        getActivity().overridePendingTransition(R.anim.enter_pull_in, R.anim.exit_fade_out);
     }
 
     @AfterViews
     public void initExpensesRecylerView() {
         expensesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        NotificationUtil.updateNotifications(getActivity());
         if(Categories.getAllCategories().isEmpty()) {
             insertCategories();
         }
@@ -67,7 +80,16 @@ public class ExpenseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        expenseSwipeRefreshLayout.setColorSchemeColors(new int[]{R.color.colorPrimary,
+                R.color.colorPrimaryDark,
+                android.R.color.white});
         loadExpenses("");
+        expenseSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadExpenses("");
+            }
+        });
     }
 
     @Override
@@ -104,7 +126,7 @@ public class ExpenseFragment extends Fragment {
     }
 
     private void loadExpenses(final String filter) {
-        getLoaderManager().restartLoader(1, null, new LoaderManager.LoaderCallbacks<List<Expenses>>() {
+        getLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<List<Expenses>>() {
             @Override
             public Loader<List<Expenses>> onCreateLoader(int id, Bundle args) {
                 final AsyncTaskLoader<List<Expenses>> loader = new AsyncTaskLoader<List<Expenses>>(getActivity()) {
@@ -118,7 +140,31 @@ public class ExpenseFragment extends Fragment {
             }
             @Override
             public void onLoadFinished(Loader<List<Expenses>> loader, List<Expenses> data) {
-                expensesListRecyclerView.setAdapter(new MyAdapter(data));
+                expenseSwipeRefreshLayout.setRefreshing(false);
+                MyAdapter adapter = (MyAdapter) expensesListRecyclerView.getAdapter();
+                if(adapter == null) {
+                    expenseAdapter = new MyAdapter(getActivity(), data, new ClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            if (actionMode != null) {
+                                toggleSection(position);
+                            }
+                        }
+
+                        @Override
+                        public boolean onItemLongClick(int position) {
+                            if (actionMode == null) {
+                                AppCompatActivity activity = (AppCompatActivity) getActivity();
+                                actionMode = activity.startSupportActionMode(actionModeCallback);
+                            }
+                            toggleSection(position);
+                            return true;
+                        }
+                    });
+                    expensesListRecyclerView.setAdapter(expenseAdapter);
+                } else {
+                    adapter.refresh(data);
+                }
             }
             @Override
             public void onLoaderReset(Loader<List<Expenses>> loader) {
@@ -144,5 +190,53 @@ public class ExpenseFragment extends Fragment {
         category.setName("Communication");
         category.insert();
     }
+
+    private void toggleSection(int position){
+        expenseAdapter.toggleSelection(position);
+        int count = expenseAdapter.getSelectedItemCount();
+
+        if (count==0){
+            actionMode.finish();
+        }
+        else {
+            actionMode.setTitle(String.valueOf(count));
+            actionMode.invalidate();
+        }
+    }
+
+    private class ActionModeCallback implements ActionMode.Callback{
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.item_remove:
+                    expenseAdapter.removeItems(expenseAdapter.getSelectedItems());
+                    mode.finish();
+                    return true;
+                default:
+                    return false;
+            }
+
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            expenseAdapter.clearSelection();
+            actionMode = null;
+
+        }
+    }
+
 
 }

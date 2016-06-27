@@ -16,7 +16,7 @@ public class ExpensesSync {
     private static final String TAG  = ExpensesSync.class.getSimpleName();
 
 
-    public static void synceExpenses(Context context) {
+    public static void syncExpenses(Context context) {
         if(Expenses.getAllExpenses().isEmpty()) return;
         RestService restService = new RestService();
         UserSyncExpensesModel userSyncExpensesModel = restService.syncExpenses(context,getDataSync());

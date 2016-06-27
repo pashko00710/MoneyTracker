@@ -2,22 +2,27 @@ package com.example.moneytracker.database.model;
 
 import com.example.moneytracker.database.MoneyTrackerDataBase;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ConflictAction;
 import com.raizlabs.android.dbflow.annotation.ModelContainer;
 import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.annotation.Unique;
+import com.raizlabs.android.dbflow.annotation.UniqueGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.List;
 
 @ModelContainer
-@Table(database = MoneyTrackerDataBase.class)
+@Table(database = MoneyTrackerDataBase.class, name="Categories",
+        uniqueColumnGroups = {@UniqueGroup(groupNumber = 1, uniqueConflict = ConflictAction.IGNORE)})
 public class Categories extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
     long id;
 
+    @Unique(unique = false, uniqueGroups = 1)
     @Column
     String name;
 
@@ -29,6 +34,7 @@ public class Categories extends BaseModel {
             expenses = SQLite.select()
                     .from(Expenses.class)
                     .where(Expenses_Table.category_id.eq(id))
+
                     .queryList();
         }
         return expenses;
@@ -40,6 +46,14 @@ public class Categories extends BaseModel {
 
     public long getId() {
         return this.id;
+    }
+
+    public float getCategoryTotal() {
+        float total = 0.f;
+        for (Expenses expense:getExpenses()) {
+            total += Float.valueOf(expense.getPrice());
+        }
+        return total;
     }
 
     public String getName() {

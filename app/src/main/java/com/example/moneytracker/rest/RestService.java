@@ -45,7 +45,7 @@ public class RestService {
         return restClient.getSyncUserApi().syncExpense(DataBaseApp.getGoogleToken(context), data, DataBaseApp.getAuthKey());
     }
 
-    public UserExpenseModel addExpense(int sum, String comment, int categoryId, String trDate, String gToken) {
+    public UserExpenseModel addExpense(double sum, String comment, int categoryId, String trDate, String gToken) {
         return restClient.getExpenseUserApi().addExpense(sum, comment, categoryId, trDate, gToken, DataBaseApp.getAuthKey());
     }
 
@@ -54,7 +54,7 @@ public class RestService {
     }
 
     public CategoriesModel addCategory(String title, Context context) {
-        return restClient.getCategoryUserApi().addCategory(title, DataBaseApp.getGoogleToken(context), DataBaseApp.getAuthKey());
+        return restClient.getCategoryUserApi().addCategory(DataBaseApp.getGoogleToken(context), title, DataBaseApp.getAuthKey());
     }
 
 }

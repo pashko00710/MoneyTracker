@@ -29,6 +29,7 @@ public class Expenses extends BaseModel {
     @ForeignKey
     ForeignKeyContainer<Categories> category;
 
+
     public void associateCategory(Categories category) {
         this.category = FlowManager.getContainerAdapter(Categories.class)
                 .toForeignKeyContainer(category);
