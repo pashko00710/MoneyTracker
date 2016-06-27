@@ -17,13 +17,23 @@ import com.example.moneytracker.R;
 import com.example.moneytracker.ui.activity.MainActivity;
 
 public class NotificationUtil {
+//    SwitchPreference prefEnableNotificationsKey, prefEnableSoundKey,
+//            prefEnableVibrateKey, prefEnableIndicatorKey;
     private static final int NOTIFICATION_ID = 4004;
 
     public static void updateNotifications(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String displayNotificationsKey =
-                context.getString(R.string.pref_enable_notifications_key);
+        String displayNotificationsKey = context.getString(R.string.pref_enable_notifications_key);
+        String prefEnableSoundKey = context.getString(R.string.pref_enable_sound_key);
+        String prefEnableVibrateKey = context.getString(R.string.pref_enable_vibrate_key);
+        String prefEnableIndicatorKey = context.getString(R.string.pref_enable_indicator_key);
         boolean displayNotifications = prefs.getBoolean(displayNotificationsKey,
+                Boolean.parseBoolean(context.getString(R.string.pref_enable_notifications_default)));
+        boolean prefEnableSound = prefs.getBoolean(prefEnableSoundKey,
+                Boolean.parseBoolean(context.getString(R.string.pref_enable_notifications_default)));
+        boolean prefEnableVibrate = prefs.getBoolean(prefEnableVibrateKey,
+                Boolean.parseBoolean(context.getString(R.string.pref_enable_notifications_default)));
+        boolean prefEnableIndicator = prefs.getBoolean(prefEnableIndicatorKey,
                 Boolean.parseBoolean(context.getString(R.string.pref_enable_notifications_default)));
 
         if (displayNotifications) {
@@ -36,9 +46,9 @@ public class NotificationUtil {
             builder.setContentIntent(intent);
 
             builder.setSmallIcon(R.mipmap.ic_launcher);
-            builder.setLights(Color.CYAN, 300, 1500);
-            builder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
-            builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
+            if(prefEnableIndicator) builder.setLights(Color.CYAN, 850, 2000);
+            if(prefEnableVibrate) builder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+            if(prefEnableSound) builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
             builder.setAutoCancel(true);
 
             String title = context.getString(R.string.app_name);
