@@ -10,6 +10,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 
+import retrofit.RetrofitError;
+
 @EActivity(R.layout.activity_splash)
 public class SplashActivity extends AppCompatActivity {
     private String gToken;
@@ -21,29 +23,28 @@ public class SplashActivity extends AppCompatActivity {
 
     @Background(delay=3000)
     void doInBackground() {
-        if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            gToken = DataBaseApp.getGoogleToken(this);
-            if(!gToken.equalsIgnoreCase("2") ) {
+        try {
+            if (NetworkStatusChecker.isNetworkAvailable(this)) {
+                gToken = DataBaseApp.getGoogleToken(this);
+                if(!gToken.equalsIgnoreCase("2") ) {
+                    MainActivity_.intent(this).start();
+                } else {
+                    LoginActivity_.intent(this).start();
+                }
+            }
+            if (!DataBaseApp.getAuthKey().equals("")) {
                 MainActivity_.intent(this).start();
             } else {
                 LoginActivity_.intent(this).start();
             }
+        } catch (RetrofitError e) {
+            e.printStackTrace();
         }
-        if (!DataBaseApp.getAuthKey().equals("")) {
-            MainActivity_.intent(this).start();
-        } else {
-            LoginActivity_.intent(this).start();
-        }
-//        if (DataBaseApp.getAuthKey().equals("")){
-//            startActivity(new Intent(this, LoginActivity_.class));
-//        }
-//        else{
-//            startActivity(new Intent(this, MainActivity_.class));
-//        }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
+        doInBackground();
     }
 }

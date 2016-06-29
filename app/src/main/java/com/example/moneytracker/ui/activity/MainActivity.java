@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -178,7 +179,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
-        else if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+        else if (getFragmentManager().getBackStackEntryCount() == 1){
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+//            Intent menu = new Intent(getApplicationContext(), LoginActivity.class);
+//            getApplicationContext().startActivity(menu);
+//            ((Activity) getApplicationContext()).finish();
             finish();
         }
         else {
@@ -215,6 +223,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Glide.clear(imageView);
     }
 
     @Background
