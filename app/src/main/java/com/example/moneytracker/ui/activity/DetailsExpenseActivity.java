@@ -24,6 +24,7 @@ import com.example.moneytracker.database.model.Expenses;
 import com.example.moneytracker.rest.RestService;
 import com.example.moneytracker.rest.model.UserExpenseModel;
 import com.example.moneytracker.util.ConstantManager;
+import com.example.moneytracker.util.NetworkStatusChecker;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.structure.database.transaction.ProcessModelTransaction;
@@ -133,7 +134,6 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
     public void onClickButtonReady() {
         if(!errorTextInput()) {
             saveExpense();
-//            saveRestExpense();
             onBackPressed();
         }
     }
@@ -186,7 +186,7 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
                     @Override
                     public void processModel(Expenses expense) {
                         Categories category = (Categories) spinner.getSelectedItem();
-                        saveRestExpense(category);
+                        if(NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) saveRestExpense(category);
                         expense.setPrice(editTextSum.getText().toString());
                         expense.setDate(expenseDate.getText().toString());
                         expense.setDescription(editTextNote.getText().toString());
@@ -222,8 +222,9 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
     @Background
     public void saveRestExpense(Categories category) {
         RestService restService = new RestService();
-        UserExpenseModel userExpenseModel = restService.addExpense(Double.parseDouble(editTextSum.getText().toString()), editTextNote.getText().toString(),
-                Integer.parseInt(String.valueOf(category.getId())), expenseDate.getText().toString(), getGoogleToken(getApplicationContext()));
+        UserExpenseModel userExpenseModel = restService.addExpense(Double.parseDouble(editTextSum.getText().toString()),
+                editTextNote.getText().toString(), Integer.parseInt(String.valueOf(category.getId())),
+                expenseDate.getText().toString(), getGoogleToken(getApplicationContext()));
         switch (userExpenseModel.getStatus()) {
             case ConstantManager.STATUS_SUCCESS :
                 Log.d("addExpense", "status:"+userExpenseModel.getStatus());

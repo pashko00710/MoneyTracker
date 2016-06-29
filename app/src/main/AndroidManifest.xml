@@ -34,6 +34,7 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activity.DetailsExpenseActivity_">
             <meta-data

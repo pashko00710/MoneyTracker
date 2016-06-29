@@ -17,8 +17,6 @@ import com.example.moneytracker.R;
 import com.example.moneytracker.ui.activity.MainActivity;
 
 public class NotificationUtil {
-//    SwitchPreference prefEnableNotificationsKey, prefEnableSoundKey,
-//            prefEnableVibrateKey, prefEnableIndicatorKey;
     private static final int NOTIFICATION_ID = 4004;
 
     public static void updateNotifications(Context context) {

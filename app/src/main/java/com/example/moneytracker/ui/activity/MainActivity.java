@@ -1,12 +1,12 @@
 package com.example.moneytracker.ui.activity;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @AfterViews
     public void ready() {
-        setTitle("ExpenseFragment");
+        setTitle("Expenses");
         replaceFragment(new ExpenseFragment_());
         setupActionBar();
         setupDrawerLayout();
@@ -87,16 +87,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String fragClassName = fragment.getClass().getName();
 
         if (fragClassName.equals(ExpenseFragment_.class.getName())) {
-            setTitle("ExpenseFragment");
+            setTitle("Expenses");
             navigationView.setCheckedItem(R.id.drawer_expenses);
         } else if (fragClassName.equals(CategoriesFragment_.class.getName())) {
-            setTitle("CategoriesFragment");
+            setTitle("Categories");
             navigationView.setCheckedItem(R.id.drawer_categories);
         } else if (fragClassName.equals(StatisticsFragment_.class.getName())) {
-            setTitle("StatisticsFragment");
+            setTitle("Statistics");
             navigationView.setCheckedItem(R.id.drawer_statistics);
         } else if (fragClassName.equals(SettingsFragment_.class.getName())) {
-            setTitle("SettingsFragment");
+            setTitle("Settings");
             navigationView.setCheckedItem(R.id.drawer_settings);
         }
     }
@@ -160,7 +160,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @UiThread
     public void setPicture() {
-        Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
+        if(NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
+            Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
                 @Override
                 protected void setResource(Bitmap resource) {
                     RoundedBitmapDrawable circularBitmapDrawable =
@@ -169,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     imageView.setImageDrawable(circularBitmapDrawable);
                 }
             });
+        }
     }
 
     @Override
@@ -191,23 +193,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         switch(item.getItemId()) {
             case R.id.drawer_expenses:
-                setTitle("ExpenseFragment");
+                setTitle("Expenses");
                 replaceFragment(new ExpenseFragment_());
                 break;
             case R.id.drawer_categories:
-                setTitle("CategoriesFragment");
+                setTitle("Categories");
                 replaceFragment(new CategoriesFragment_());
                 break;
             case R.id.drawer_statistics:
-                setTitle("StatisticsFragment");
+                setTitle("Statistics");
                 replaceFragment(new StatisticsFragment_());
                 break;
             case R.id.drawer_settings:
-                setTitle("SettingsFragment");
+                setTitle("Settings");
                 replaceFragment(new SettingsFragment_());
                 break;
             case R.id.drawer_exit:
                 logoutUser();
+                break;
             default:
                 break;
         }

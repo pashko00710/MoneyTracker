@@ -24,7 +24,6 @@ import com.example.moneytracker.database.model.Categories;
 import com.example.moneytracker.database.model.Expenses;
 import com.example.moneytracker.ui.activity.DetailsExpenseActivity_;
 import com.example.moneytracker.util.NetworkStatusChecker;
-import com.example.moneytracker.util.NotificationUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -70,7 +69,6 @@ public class ExpenseFragment extends Fragment {
     @AfterViews
     public void initExpensesRecylerView() {
         expensesListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        NotificationUtil.updateNotifications(getActivity());
         if(Categories.getAllCategories().isEmpty()) {
             insertCategories();
         }

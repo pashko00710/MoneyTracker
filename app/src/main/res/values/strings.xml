@@ -73,7 +73,7 @@
     <string name="pref_enable_notifications_def_false" translatable="false">false</string>
 
     <!-- String for notification bar-->
-    <string name="notification_message">Settings have been saved</string>
+    <string name="notification_message">Data synchronized</string>
     <string name="pref_notification_section">Settings</string>
 
     <string name="pref_enable_sound_key" translatable="false">enable_notifications_sound</string>

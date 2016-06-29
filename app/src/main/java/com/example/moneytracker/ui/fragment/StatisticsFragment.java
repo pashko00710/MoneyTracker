@@ -1,11 +1,11 @@
 package com.example.moneytracker.ui.fragment;
 
-import android.graphics.Color;
-import android.os.Bundle;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Loader;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,7 +13,6 @@ import com.example.moneytracker.R;
 import com.example.moneytracker.database.model.Categories;
 import com.example.moneytracker.database.model.Expenses;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -90,7 +89,6 @@ public class StatisticsFragment extends Fragment {
 
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                // display msg when value selected
                 if (e == null) return;
                 Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
             }
@@ -100,11 +98,6 @@ public class StatisticsFragment extends Fragment {
 
             }
         });
-        Legend l = pieChart.getLegend();
-        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-        l.setXEntrySpace(7);
-        l.setYEntrySpace(6);
-
     }
 
     private void setDataChart(List<Categories> categories) {
