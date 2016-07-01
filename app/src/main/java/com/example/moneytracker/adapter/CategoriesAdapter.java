@@ -42,7 +42,7 @@ public class CategoriesAdapter extends SelectableAdapter<CategoriesAdapter.Categ
     public void onBindViewHolder(CategoriesHolder holder, int position) {
         Categories category = categoryList.get(position);
         holder.name.setText(category.getName());
-        holder.catPrice.setText(String.valueOf((category.getCategoryTotal())));
+        holder.catPrice.setText(String.valueOf((category.getCategoryTotal())+"$"));
         setAnimation(holder.cardView, position);
         holder.view.setVisibility(isSelected(position) ? View.VISIBLE : View.INVISIBLE);
 

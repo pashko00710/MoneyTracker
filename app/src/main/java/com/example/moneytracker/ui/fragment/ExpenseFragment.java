@@ -113,7 +113,7 @@ public class ExpenseFragment extends Fragment {
     @Background
        public void registerUser() {
         if(!NetworkStatusChecker.isNetworkAvailable(getActivity())) {
-            Snackbar snackbar = Snackbar.make(rootLayout, "Internet is not defined", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(rootLayout, R.string.internet_not_connected, Snackbar.LENGTH_LONG);
             snackbar.show();
         }
     }
@@ -173,19 +173,19 @@ public class ExpenseFragment extends Fragment {
 
     private void insertCategories() {
         Categories category = new Categories();
-        category.setName("Food");
+        category.setName(getString(R.string.categories_food));
         category.insert();
-        category.setName("Cinema");
+        category.setName(getString(R.string.categories_cinema));
         category.insert();
-        category.setName("Transport");
+        category.setName(getString(R.string.categories_transport));
         category.insert();
-        category.setName("Cloth");
+        category.setName(getString(R.string.categories_cloth));
         category.insert();
-        category.setName("Products");
+        category.setName(getString(R.string.categories_products));
         category.insert();
-        category.setName("Other");
+        category.setName(getString(R.string.categories_other));
         category.insert();
-        category.setName("Communication");
+        category.setName(getString(R.string.categories_communication));
         category.insert();
     }
 

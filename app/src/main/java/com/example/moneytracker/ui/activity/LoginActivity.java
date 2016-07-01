@@ -131,18 +131,18 @@ public class LoginActivity extends AppCompatActivity {
 
     @Background
     public void performLogin(Intent data) {
-        final String accountname = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+        final String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
         String token = null;
 
         try {
-            token = GoogleAuthUtil.getToken(LoginActivity.this, accountname, ConstantManager.SCOPES);
+            token = GoogleAuthUtil.getToken(LoginActivity.this, accountName, ConstantManager.SCOPES);
         } catch(UserRecoverableAuthException userAuthEx){
             startActivityForResult(userAuthEx.getIntent(), 10);
         } catch (IOException ioEx) {
             ioEx.printStackTrace();
         } catch (GoogleAuthException fatalAuthEx) {
             fatalAuthEx.printStackTrace();
-            Log.e(LOG_TAG, "Fatal Exception " + fatalAuthEx.getLocalizedMessage());
+            Log.e(LOG_TAG, getString(R.string.loginactivity_fatal_exc) + fatalAuthEx.getLocalizedMessage());
         }
 
         DataBaseApp.setGoogleToken(this, token);

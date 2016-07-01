@@ -1,6 +1,7 @@
 package com.example.moneytracker.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.AndroidRuntimeException;
 
 import com.example.moneytracker.R;
 import com.example.moneytracker.util.DataBaseApp;
@@ -31,13 +32,18 @@ public class SplashActivity extends AppCompatActivity {
                 } else {
                     LoginActivity_.intent(this).start();
                 }
-            }
-            if (!DataBaseApp.getAuthKey().equals("")) {
-                MainActivity_.intent(this).start();
+
+                if (!DataBaseApp.getAuthKey().equals("")) {
+                    MainActivity_.intent(this).start();
+                } else {
+                    LoginActivity_.intent(this).start();
+                }
             } else {
                 LoginActivity_.intent(this).start();
             }
         } catch (RetrofitError e) {
+            e.printStackTrace();
+        } catch (AndroidRuntimeException e) {
             e.printStackTrace();
         }
     }

@@ -40,10 +40,10 @@ public class SpinnerCategoriesAdapter extends ArrayAdapter {
         Categories category = getItem(position);
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_categories, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_dropdown_item, parent, false);
         }
 
-        TextView name = (TextView) convertView.findViewById(R.id.spinner_name_text);
+        TextView name = (TextView) convertView.findViewById(android.R.id.text1);
         name.setText(category.getName());
 
         return convertView;

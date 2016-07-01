@@ -38,7 +38,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @AfterViews
     public void ready() {
-        setTitle("Authorization");
+        setTitle(getString(R.string.authorization));
     }
 
     @Click(R.id.btnRegistration)

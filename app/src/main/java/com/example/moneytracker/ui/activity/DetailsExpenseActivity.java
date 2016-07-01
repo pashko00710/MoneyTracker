@@ -204,14 +204,14 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
                 .success(new Transaction.Success() {
                     @Override
                     public void onSuccess(Transaction transaction) {
-                        Toast.makeText(DetailsExpenseActivity.this, "Entry added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsExpenseActivity.this, R.string.addexpense_entry_added, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 })
                 .error(new Transaction.Error() {
                     @Override
                     public void onError(Transaction transaction, Throwable error) {
-                        Toast.makeText(DetailsExpenseActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsExpenseActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
                     }
                 }).build();
 
@@ -230,7 +230,7 @@ public class DetailsExpenseActivity extends AppCompatActivity implements LoaderM
                 Log.d("addExpense", "status:"+userExpenseModel.getStatus());
                 break;
             case ConstantManager.STATUS_ERROR :
-                Log.d("addExpense", "Error");
+                Log.d("addExpense", String.valueOf(R.string.error));
                 break;
             default :
                 break;

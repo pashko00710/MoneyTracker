@@ -58,7 +58,7 @@ public class MyAdapter extends SelectableAdapter<MyAdapter.ViewHolder> {
         holder.description.setText(expense.getDescription());
         holder.date.setText(expense.getDate());
         holder.category.setText(expense.getCategory().getName());
-        holder.price.setText(expense.getPrice());
+        holder.price.setText(expense.getPrice()+"$");
         setAnimation(holder.cardView, position);
         holder.view.setVisibility(isSelected(position) ? View.VISIBLE : View.INVISIBLE);
     }

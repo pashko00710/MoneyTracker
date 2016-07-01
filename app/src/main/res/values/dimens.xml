@@ -37,4 +37,6 @@
     <dimen name="detailsexpense_textview_textsize">16sp</dimen>
     <dimen name="detailsexpense_textview_margintop">22dp</dimen>
     <dimen name="detailsexpense_edittext_margintop">22dp</dimen>
+    <dimen name="spinner_dropdown_textsize">18sp</dimen>
+    <dimen name="spinner_textsize">20sp</dimen>
 </resources>

@@ -11,10 +11,8 @@ import android.content.SyncResult;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.moneytracker.R;
-import com.example.moneytracker.util.NetworkStatusChecker;
 import com.example.moneytracker.util.NotificationUtil;
 
 public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
@@ -29,13 +27,10 @@ public class TrackerSyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         Log.e(TAG, "Sync");
 
-        if(NetworkStatusChecker.isNetworkAvailable(getContext())) {
-            CategoriesSync.syncCategories(getContext());
-            ExpensesSync.syncExpenses(getContext());
+        boolean catSync = CategoriesSync.syncCategories(getContext());
+        boolean expSync = ExpensesSync.syncExpenses(getContext());
+        if(catSync || expSync) {
             NotificationUtil.updateNotifications(getContext());
-        } else {
-            Toast.makeText(getContext(), "An error occurred during synchronization ," +
-                    " check the connection to internet", Toast.LENGTH_LONG).show();
         }
     }
 

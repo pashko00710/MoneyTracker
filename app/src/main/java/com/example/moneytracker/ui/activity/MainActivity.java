@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -42,6 +41,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import retrofit.RetrofitError;
+
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -60,14 +61,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @AfterViews
     public void ready() {
-        setTitle("Expenses");
+        setTitle(getString(R.string.expenses));
         replaceFragment(new ExpenseFragment_());
         setupActionBar();
         setupDrawerLayout();
         backStack();
-        setHeaderDrawerInfo();
 
         TrackerSyncAdapter.initializeSyncAdapter(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setHeaderDrawerInfo();
     }
 
     private void backStack() {
@@ -88,16 +94,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String fragClassName = fragment.getClass().getName();
 
         if (fragClassName.equals(ExpenseFragment_.class.getName())) {
-            setTitle("Expenses");
+            setTitle(R.string.expenses);
             navigationView.setCheckedItem(R.id.drawer_expenses);
         } else if (fragClassName.equals(CategoriesFragment_.class.getName())) {
-            setTitle("Categories");
+            setTitle(getString(R.string.categories));
             navigationView.setCheckedItem(R.id.drawer_categories);
         } else if (fragClassName.equals(StatisticsFragment_.class.getName())) {
-            setTitle("Statistics");
+            setTitle(getString(R.string.statistics));
             navigationView.setCheckedItem(R.id.drawer_statistics);
         } else if (fragClassName.equals(SettingsFragment_.class.getName())) {
-            setTitle("Settings");
+            setTitle(getString(R.string.settings));
             navigationView.setCheckedItem(R.id.drawer_settings);
         }
     }
@@ -141,8 +147,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Background
     public void setHeaderDrawerInfo() {
         if(!DataBaseApp.getGoogleToken(this).equalsIgnoreCase("2")) {
-            RestService restService = new RestService();
-            GoogleModel googleModel = restService.getJsonModel(this);
+            RestService restService = null;
+            GoogleModel googleModel = null;
+            try {
+                restService = new RestService();
+                googleModel = restService.getJsonModel(this);
+            } catch (RetrofitError e) {
+                e.printStackTrace();
+                return;
+            }
 
             name = googleModel.getName();
             email = googleModel.getEmail();
@@ -162,15 +175,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @UiThread
     public void setPicture() {
         if(NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
-            Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable =
-                            RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                    circularBitmapDrawable.setCircular(true);
-                    imageView.setImageDrawable(circularBitmapDrawable);
-                }
-            });
+            try {
+                Glide.with(context).load(pictureUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        imageView.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -179,15 +196,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
-        else if (getFragmentManager().getBackStackEntryCount() == 1){
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-//            Intent menu = new Intent(getApplicationContext(), LoginActivity.class);
-//            getApplicationContext().startActivity(menu);
-//            ((Activity) getApplicationContext()).finish();
-            finish();
+        else if (getFragmentManager().getBackStackEntryCount() == 1) {
+            try {
+                finish();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
         }
         else {
             super.onBackPressed();
@@ -201,19 +215,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         switch(item.getItemId()) {
             case R.id.drawer_expenses:
-                setTitle("Expenses");
+                setTitle(R.string.expenses);
                 replaceFragment(new ExpenseFragment_());
                 break;
             case R.id.drawer_categories:
-                setTitle("Categories");
+                setTitle(R.string.categories);
                 replaceFragment(new CategoriesFragment_());
                 break;
             case R.id.drawer_statistics:
-                setTitle("Statistics");
+                setTitle(R.string.statistics);
                 replaceFragment(new StatisticsFragment_());
                 break;
             case R.id.drawer_settings:
-                setTitle("Settings");
+                setTitle(R.string.settings);
                 replaceFragment(new SettingsFragment_());
                 break;
             case R.id.drawer_exit:
@@ -238,6 +252,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             snackbar.show();
             return;
         }
+        DataBaseApp.setAuthToken("");
         RestService restService = new RestService();
         UserLogoutModel userLogoutModel = restService.logout();
 

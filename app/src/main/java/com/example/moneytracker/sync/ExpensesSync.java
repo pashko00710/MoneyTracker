@@ -7,6 +7,7 @@ import com.example.moneytracker.database.model.Expenses;
 import com.example.moneytracker.rest.RestService;
 import com.example.moneytracker.rest.model.ExpensesModel;
 import com.example.moneytracker.rest.model.UserSyncExpensesModel;
+import com.example.moneytracker.util.ConstantManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -16,12 +17,15 @@ public class ExpensesSync {
     private static final String TAG  = ExpensesSync.class.getSimpleName();
 
 
-    public static void syncExpenses(Context context) {
-        if(Expenses.getAllExpenses().isEmpty()) return;
+    public static boolean syncExpenses(Context context) {
+        if(Expenses.getAllExpenses().isEmpty()) return false;
         RestService restService = new RestService();
         UserSyncExpensesModel userSyncExpensesModel = restService.syncExpenses(context,getDataSync());
         Log.d(TAG, userSyncExpensesModel.getStatus());
 
+        if(!userSyncExpensesModel.getStatus().equals(ConstantManager.STATUS_SUCCESS)) return false;
+
+        return true;
     }
 
     public static String getDataSync() {
@@ -31,7 +35,6 @@ public class ExpensesSync {
         Gson gson = new Gson();
 
         for (Expenses expense: listExp) {
-            //(int) expense.getId()
             expenseModel.setId(0);
             expenseModel.setCategoryId((int) expense.categoryGetId());
             expenseModel.setComment(expense.getDescription());

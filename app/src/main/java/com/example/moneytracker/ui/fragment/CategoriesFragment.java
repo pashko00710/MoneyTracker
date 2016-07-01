@@ -63,9 +63,6 @@ public class CategoriesFragment extends Fragment {
     @ViewById(R.id.category_price)
     TextView catPrice;
 
-//    @ViewById(R.id.dialog_add_edittext)
-//    TextInputLayout textInputLayoutDialog;
-
     Dialog dialog;
 
     private static final String FILTER_ID = "filter_id";
@@ -92,7 +89,7 @@ public class CategoriesFragment extends Fragment {
                         dialog.dismiss();
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Enter a name for the category", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.enteradd_categories_add, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -137,9 +134,9 @@ public class CategoriesFragment extends Fragment {
 
     private boolean errorTextInput(Editable text) {
         if(text.length() < 2) {
-            Toast.makeText(getActivity(), "Minimum two letters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.catadd_min_letters, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getActivity(), "Nice", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.catadd_nice, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -240,16 +237,6 @@ public class CategoriesFragment extends Fragment {
             }
         });
     }
-
-//    private void setPriceForCategory(List<Categories> categories) {
-//        for (Categories category: categories) {
-//            Log.d("LALlfsdlfsdl", "setPriceForCategory: "+ category.getCategoryTotal());
-////            if(category.getCategoryTotal() == 0) {
-////                catPrice.setText((int) 0.f);
-////            }
-////            catPrice.setText((int) category.getCategoryTotal());
-//        }
-//    }
 
     private void toggleSection(int position){
         categoriesAdapter.toggleSelection(position);
